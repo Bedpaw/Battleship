@@ -1,25 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bedpa\\RiderProjects\\ConsoleApp7\\ConsoleApp7\\ConsoleApp7.csproj": {}
+    "C:\\Users\\jablo\\OneDrive\\Desktop\\Battleship\\ConsoleApp7\\ConsoleApp7.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bedpa\\RiderProjects\\ConsoleApp7\\ConsoleApp7\\ConsoleApp7.csproj": {
+    "C:\\Users\\jablo\\OneDrive\\Desktop\\Battleship\\ConsoleApp7\\ConsoleApp7.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bedpa\\RiderProjects\\ConsoleApp7\\ConsoleApp7\\ConsoleApp7.csproj",
+        "projectUniqueName": "C:\\Users\\jablo\\OneDrive\\Desktop\\Battleship\\ConsoleApp7\\ConsoleApp7.csproj",
         "projectName": "ConsoleApp7",
-        "projectPath": "C:\\Users\\bedpa\\RiderProjects\\ConsoleApp7\\ConsoleApp7\\ConsoleApp7.csproj",
-        "packagesPath": "C:\\Users\\bedpa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bedpa\\RiderProjects\\ConsoleApp7\\ConsoleApp7\\obj\\",
+        "projectPath": "C:\\Users\\jablo\\OneDrive\\Desktop\\Battleship\\ConsoleApp7\\ConsoleApp7.csproj",
+        "packagesPath": "C:\\Users\\jablo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jablo\\OneDrive\\Desktop\\Battleship\\ConsoleApp7\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\bedpa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jablo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,12 +50,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
