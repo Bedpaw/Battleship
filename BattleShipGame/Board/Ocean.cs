@@ -58,10 +58,11 @@ namespace ConsoleApp7.Board
             foreach (var row in board)
             {
                 Write($"{new String(' ', (10 - CalcLengthOfInt(i+1)))}{i+1} ");
-                BackgroundColor = ConsoleColor.DarkBlue;
+                // BackgroundColor = ConsoleColor.DarkBlue;
                 foreach (var element in row)
                 {
-                    Write(element.fieldSymbol);
+                    // Write(element.fieldSymbol);
+                    element.ReturnSymbolWithColor();
                 }
                 WriteLine();
                 ResetColor();
