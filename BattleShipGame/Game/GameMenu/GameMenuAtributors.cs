@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security;
+using ConsoleApp7.Board;
 using static System.Console;
+using static System.Text.StringBuilder;
 
 namespace ConsoleApp7.Game
 {
@@ -24,7 +26,9 @@ namespace ConsoleApp7.Game
                 switch (selector)
                 {
                     case 1:
-                        WriteLine("1111111");
+                        Ocean gameOcean = new Ocean(10, 10);
+                        gameOcean.printUpperCords();
+                        gameOcean.PrintMiddleMap();
                         break;
                     case 2:
                         WriteLine("2222222");
@@ -49,7 +53,6 @@ namespace ConsoleApp7.Game
                             DisplayMenuOptions();
                             WriteLine("\nPlease select proper option!\n");
                         }
-
                         break;
 
                     default:
