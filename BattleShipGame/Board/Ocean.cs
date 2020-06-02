@@ -6,11 +6,11 @@ using System.Text;
 
 namespace ConsoleApp7.Board
 {
-    public class Ocean
+    public abstract class Ocean
     {
         public List<List<Field>> board;
-        private int initX;
-        private int initY;
+        protected int initX;
+        protected int initY;
 
         public Ocean(int initX, int initY)
         {
@@ -35,12 +35,12 @@ namespace ConsoleApp7.Board
             return firstLevelList;
         }
 
-        public void printUpperCords()
+        public void PrintUpperCords()
         {
             StringBuilder sb = new StringBuilder();
             string SpaceHolder = new String(' ', 11);
             sb.Append(SpaceHolder);
-            for (int i = 65; i < (65 + initX); i++)
+            for (int i = 65; i < (65 + initY); i++)
             {
                 sb.Append(Convert.ToChar(i));
             }
@@ -58,7 +58,6 @@ namespace ConsoleApp7.Board
             foreach (var row in board)
             {
                 Write($"{new String(' ', (10 - CalcLengthOfInt(i+1)))}{i+1} ");
-                // BackgroundColor = ConsoleColor.DarkBlue;
                 foreach (var element in row)
                 {
                     // Write(element.fieldSymbol);
@@ -72,12 +71,8 @@ namespace ConsoleApp7.Board
 
         public void DisplayOcean()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (var cell in board)
-            {
-                // sb.Append($"{cell.symbol} |");
-            }
-            WriteLine(sb);
+            PrintUpperCords();
+            PrintMiddleMap();
         }
     }
 }

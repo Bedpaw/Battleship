@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security;
 using ConsoleApp7.Board;
 using static System.Console;
 using static System.Text.StringBuilder;
@@ -26,9 +25,8 @@ namespace ConsoleApp7.Game
                 switch (selector)
                 {
                     case 1:
-                        Ocean gameOcean = new Ocean(10, 10);
-                        gameOcean.printUpperCords();
-                        gameOcean.PrintMiddleMap();
+                        MyOcean gameOcean = new MyOcean(10, 30);
+                        gameOcean.DisplayOcean();
                         break;
                     case 2:
                         WriteLine("2222222");
