@@ -13,13 +13,13 @@ namespace ConsoleApp7.Board
             bool isShipOn = false;
             
         }
-        public char fieldSymbol = '.';
+        public char fieldSymbol = '~';
 
 
-        public void ReturnSymbolWithColor()
+        public string ReturnSymbolWithColor()
         {
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
-            Console.Write(fieldSymbol );
+            string returnSymbol = Char.ToString(fieldSymbol);
+            return returnSymbol;
         }
     }
 }
