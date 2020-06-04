@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ConsoleApp7.Board;
 using ConsoleApp7.Game;
 using ConsoleApp7.utils;
 
@@ -8,6 +9,14 @@ namespace ConsoleApp7.Players
     public class ConsolePlayer : Player, IDisplayingAttackResults
     {   
         private List<string> allPositionsAttackedByPlayer = new List<string>();  
+        
+        public ConsolePlayer()
+        {
+            Console.WriteLine("Konstruktor ConsolePlayer");
+            PlayerBoard = new Ocean(10, 10);
+            SetShips(PlayerBoard);
+            
+        }
         
         public override string Attack()
         {
@@ -23,9 +32,10 @@ namespace ConsoleApp7.Players
             return attackedPosition;
         }
 
-        protected override void SetShips()
+        protected override void SetShips(Ocean playerBoard)
         {
-            
+            Console.WriteLine("Konstruktor Setttt");
+            ShipsCreation.AddFleetToPlayerBoard(playerBoard);
         }
 
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)

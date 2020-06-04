@@ -10,5 +10,6 @@
             // Horizont = isHorizont;
             
         }
+        public char fieldSymbol = 'B';
     }
 }

@@ -6,14 +6,20 @@ namespace ConsoleApp7.Game
 {
     public abstract class Player
     {
-        private Ocean PlayerBoard;
+        protected Ocean PlayerBoard;
         protected Player()
         {
             PlayerBoard = new Ocean(10, 10);
-            SetShips();
-        } 
+            SetShips(PlayerBoard);
+            
+        }
+        
+        
+
+        public Ocean Ocean { get; set; }
+
         public abstract string Attack();
-        protected abstract void SetShips();
+        protected abstract void SetShips(Ocean PlayerBoard);
 
 
         public void DisplayDefendingResult(string attackedPosition, in bool attackResult, in bool isHitAndSink)

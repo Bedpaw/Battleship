@@ -17,14 +17,11 @@ namespace ConsoleApp7.Board
         public string Name { get; set; }
         public int Size{ get; set; }
         public int Hits { get; set; }
-        public string Orientation { get; set; }
+        public int Orientation { get; set; }
         
-        // public int EndPosition;
-        public int[] StartPositions { get; set; };
+        public int[] StartPositions { get; set; }
         
         public bool checkIfSunk { get; set; }
-        
-        
         
 
     }

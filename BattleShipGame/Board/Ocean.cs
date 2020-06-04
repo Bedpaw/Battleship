@@ -3,13 +3,16 @@ using System.Collections;
 using static System.Console;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace ConsoleApp7.Board
 {
     public class Ocean
     {
-        public List<List<Field>> board;
+        private static List<Ship> Fleet = new List<Ship>();
+        public List<List<Field>> board ;
         protected int initX;
         protected int initY;
 
@@ -18,6 +21,25 @@ namespace ConsoleApp7.Board
              this.initX = initX;
              this.initY = initY;
              board = initNewBoard(this.initX, this.initY);
+        }
+
+        public void AddNewShip(Ship newShip)
+        {
+            Fleet.Add(newShip);
+            for (int i = 0; i < newShip.Size; i++)
+            {
+                int[] PosXY = newShip.StartPositions;
+                if (newShip.Orientation == 1)
+                {
+                    board[PosXY[0]+i][PosXY[1]].shipOn = newShip;
+                }
+                else if(newShip.Orientation == 2)
+                {
+                    board[PosXY[0]][PosXY[1]+i].shipOn = newShip;
+                }
+            }
+            
+            
         }
         public static List<List<Field>> initNewBoard(int sizeX, int sizeY)
         {

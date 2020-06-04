@@ -8,5 +8,6 @@
             Size = 2;
             // Horizont = isHorizont;
         }
+        public char fieldSymbol = 'B';
     }
 }

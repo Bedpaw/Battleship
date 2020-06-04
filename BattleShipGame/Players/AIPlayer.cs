@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp7.Game
+﻿using ConsoleApp7.Board;
+
+namespace ConsoleApp7.Game
 {
     public class PlayerAI : Player
     {
@@ -13,8 +15,8 @@
         {
             throw new System.NotImplementedException();
         }
-
-        protected override void SetShips()
+        
+        protected override void SetShips(Ocean PlayerBoard)
         {
             throw new System.NotImplementedException();
         }

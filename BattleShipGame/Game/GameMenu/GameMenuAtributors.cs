@@ -25,9 +25,9 @@ namespace ConsoleApp7.Game
                 switch (selector)
                 {
                     case 1:
-                        Ocean gameOcean = new Ocean(10, 10);
-                        gameOcean.DisplayBothOceans();
-                        ShipsCreation.CreateShip();
+                        // Ocean gameOcean = new Ocean(10, 10);
+                        // gameOcean.DisplayBothOceans();
+                        new Game();
                         
                         break;
                     case 2:

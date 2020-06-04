@@ -18,6 +18,7 @@ namespace ConsoleApp7.Game
         }
         public Game()
         {
+            Console.WriteLine("Jesteśmy tuttaj");
             AttackingPlayer = player1 = new ConsolePlayer(); 
             DefendingPlayer = player2 = new ConsolePlayer();
         }

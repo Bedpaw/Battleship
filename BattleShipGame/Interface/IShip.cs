@@ -6,7 +6,7 @@ namespace ConsoleApp7.Interface
     {
         public interface IShip
         {
-            bool ValidateStartPosition(Position position, char[] rows, char[] columns, string[,] grid);
+            bool ValidateStartPosition(char[] rows, char[] columns, string[,] grid);
             bool ValidateOrientation(char orientation);
             bool ValidateCellContents(string candidateCellContents);
 
@@ -22,4 +22,5 @@ namespace ConsoleApp7.Interface
         }
 
     }
+    
 }
