@@ -25,7 +25,7 @@ namespace ConsoleApp7.Players
 
         protected override void SetShips()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)

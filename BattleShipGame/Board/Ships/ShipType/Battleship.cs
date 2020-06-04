@@ -2,7 +2,7 @@
 {
     public class Battleship : Ship
     {
-        public Battleship(bool isHorizont)
+        public Battleship()
         {
             Name = "Battleship";
             Size = 4;

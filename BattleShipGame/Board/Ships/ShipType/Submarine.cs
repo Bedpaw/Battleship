@@ -3,7 +3,7 @@
     public class Submarine : Ship
     {
         
-        public Submarine(bool isHorizont)
+        public Submarine()
         {
             Name = "Submarine";
             Size = 3;
