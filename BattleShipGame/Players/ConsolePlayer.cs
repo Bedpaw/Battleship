@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using ConsoleApp7.Game;
+using ConsoleApp7.utils;
 
-namespace ConsoleApp7.Game
+namespace ConsoleApp7.Players
 {
     public class ConsolePlayer : Player, IDisplayingAttackResults
     {   
@@ -15,7 +17,7 @@ namespace ConsoleApp7.Game
             {   Console.WriteLine("Please input position to attack: "); 
                 attackedPosition = Console.ReadLine();
                 
-            } while (IsProperAttackPosition(attackedPosition) == false);
+            } while (Validation.IsProperAttackPosition(attackedPosition, allPositionsAttackedByPlayer) == false);
             
             allPositionsAttackedByPlayer.Add(attackedPosition);
             return attackedPosition;
@@ -26,19 +28,6 @@ namespace ConsoleApp7.Game
             throw new System.NotImplementedException();
         }
 
-        private bool IsProperAttackPosition(string attackedPosition)
-        {
-            var charsToValidate = attackedPosition.ToCharArray();
-
-            if (charsToValidate.Length != 2) return false; 
-            if (!char.IsLetter(charsToValidate[0])) return false;
-            if (!char.IsDigit(charsToValidate[1])) return false;
-            if (allPositionsAttackedByPlayer.Contains(attackedPosition)) return false;
-            
-            return true;
-
-        }
-        
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             var messageToDisplay = $"You shot into {attackedPosition}.\n";

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using ConsoleApp7.Players;
 
 namespace ConsoleApp7.Game
 {
@@ -24,12 +25,13 @@ namespace ConsoleApp7.Game
         {
             // :TODO
         }
+
         private bool UpdateOceanAfterAttack(string attackedPosition)
-        {    
+        {
             // update defendingPlayer.updateBoard(attackedPosition)
             // return True if shooted
 
-            return false;
+            return false; //Change to array<bool> [isAttackSuccess, IsHitAndSink]
         }
         private bool IsNotEndGame()
         { 
@@ -50,7 +52,6 @@ namespace ConsoleApp7.Game
         {
             bool isHitAndSink = false; // Mock, u need to get it in param
             
-            // :TODO Check how to initialize Player with interface
             if (AttackingPlayer is IDisplayingAttackResults)
             {
                 AttackingPlayer.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
@@ -65,9 +66,9 @@ namespace ConsoleApp7.Game
             do
             {   
                 string attackedPosition = AttackingPlayer.Attack();
-                bool attackResult = UpdateOceanAfterAttack(attackedPosition);
-                DisplayAttackResults(attackedPosition, attackResult);
-                if (attackResult == false) SwitchPLayers();
+                bool isAttackSuccess = UpdateOceanAfterAttack(attackedPosition);
+                DisplayAttackResults(attackedPosition, isAttackSuccess);
+                if (isAttackSuccess == false) SwitchPLayers();
             } while (IsNotEndGame());
         }
         
