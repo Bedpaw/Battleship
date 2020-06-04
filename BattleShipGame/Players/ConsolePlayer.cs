@@ -23,7 +23,7 @@ namespace ConsoleApp7.Game
 
         protected override void SetShips()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         private bool IsProperAttackPosition(string attackedPosition)

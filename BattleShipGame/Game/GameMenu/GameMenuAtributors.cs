@@ -25,10 +25,10 @@ namespace ConsoleApp7.Game
                 switch (selector)
                 {
                     case 1:
-                        Ocean gameOcean = new Ocean(9, 20);
-                        ShipsCreation.ShipSelection();
+                        Ocean gameOcean = new Ocean(10, 10);
                         gameOcean.DisplayBothOceans();
-
+                        ShipsCreation.CreateShip();
+                        
                         break;
                     case 2:
                         WriteLine("2222222");

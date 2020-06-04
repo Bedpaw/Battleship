@@ -2,7 +2,7 @@
 {
     public class Destroyer : Ship
     {
-        public Destroyer(bool isHorizont)
+        public Destroyer()
         {
             Name = "Destroyer";
             Size = 2;

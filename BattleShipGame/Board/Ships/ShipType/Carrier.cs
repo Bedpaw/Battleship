@@ -2,7 +2,7 @@
 {
     public class Carrier : Ship
     {
-        public Carrier(bool isHorizont)
+        public Carrier()
         {
             Name = "Aircraft Carrier";
             Size = 5;
