@@ -27,7 +27,9 @@ namespace ConsoleApp7.Game
                     case 1:
                         // Ocean gameOcean = new Ocean(10, 10);
                         // gameOcean.DisplayBothOceans();
-                        new Game();
+                        var game = new Game();
+                        game.GameLoop();
+                        
                         
                         break;
                     case 2:

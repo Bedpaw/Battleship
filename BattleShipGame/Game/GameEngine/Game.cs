@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using ConsoleApp7.Players;
 
 namespace ConsoleApp7.Game
@@ -18,7 +19,6 @@ namespace ConsoleApp7.Game
         }
         public Game()
         {
-            Console.WriteLine("Jesteśmy tuttaj");
             AttackingPlayer = player1 = new ConsolePlayer(); 
             DefendingPlayer = player2 = new ConsolePlayer();
         }
@@ -27,32 +27,28 @@ namespace ConsoleApp7.Game
             // :TODO
         }
 
-        private bool UpdateOceanAfterAttack(string attackedPosition)
+        private bool[] UpdateOceansAfterAttack(string attackedPosition)
         {
-            // update defendingPlayer.updateBoard(attackedPosition)
-            // return True if shooted
+            var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
+            AttackingPlayer.UpdateEnemyBoard(attackedPosition, attackResult); // Do we need?
 
-            return false; //Change to array<bool> [isAttackSuccess, IsHitAndSink]
+            return attackResult;
         }
-        private bool IsNotEndGame()
-        { 
-            // return False if game end
-            // else return True
-            return true;
+        private bool IsNotEndGame(bool isHitAndSink)
+        {   
+            if (isHitAndSink) return DefendingPlayer.IsFleetAlive();
+            else return true;
         }
 
         private void SwitchPLayers()
         {
-            // Attacking = temp
-            // Attacking = Defending
-            // Defending = temp
-            // a, b = b, a
+            var temp = AttackingPlayer;
+            AttackingPlayer = DefendingPlayer;
+            DefendingPlayer = temp;
         }
 
-        private void DisplayAttackResults(string attackedPosition, bool attackResult /*,bool isHitAndSink*/)
+        private void DisplayAttackResults(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
-            bool isHitAndSink = false; // Mock, u need to get it in param
-            
             if (AttackingPlayer is IDisplayingAttackResults)
             {
                 AttackingPlayer.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
@@ -64,20 +60,26 @@ namespace ConsoleApp7.Game
         }
         public void GameLoop()
         {
+            bool isHitAndSink;
             do
             {   
-                string attackedPosition = AttackingPlayer.Attack();
-                bool isAttackSuccess = UpdateOceanAfterAttack(attackedPosition);
-                DisplayAttackResults(attackedPosition, isAttackSuccess);
+                var attackedPosition = AttackingPlayer.Attack();
+               
+                var attackResult = UpdateOceansAfterAttack(attackedPosition);
+                var isAttackSuccess = attackResult[0];
+                isHitAndSink = attackResult[1];
+                
+                DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
+                
                 if (isAttackSuccess == false) SwitchPLayers();
-            } while (IsNotEndGame());
+            } while (IsNotEndGame(isHitAndSink));
         }
         
 
         public string DisplayEndGameMessage()
         {
             //return info about winner         
-            return "Player 1 has won!";
+            return "AttackingPlayer has won!";
 
         } 
 

@@ -10,13 +10,12 @@ namespace ConsoleApp7.Players
     {   
         private List<string> allPositionsAttackedByPlayer = new List<string>();  
         
-        public ConsolePlayer()
+        /*public ConsolePlayer()
         {
-            Console.WriteLine("Konstruktor ConsolePlayer");
             PlayerBoard = new Ocean(10, 10);
-            SetShips(PlayerBoard);
-            
-        }
+            EnemyBoard = new Ocean(10, 10);
+            /*SetShips(PlayerBoard);#1#
+        }*/
         
         public override string Attack()
         {
@@ -24,7 +23,7 @@ namespace ConsoleApp7.Players
             
             do
             {   Console.WriteLine("Please input position to attack: "); 
-                attackedPosition = Console.ReadLine();
+                attackedPosition = Console.ReadLine()?.ToUpper();
                 
             } while (Validation.IsProperAttackPosition(attackedPosition, allPositionsAttackedByPlayer) == false);
             
@@ -34,8 +33,24 @@ namespace ConsoleApp7.Players
 
         protected override void SetShips(Ocean playerBoard)
         {
-            Console.WriteLine("Konstruktor Setttt");
             ShipsCreation.AddFleetToPlayerBoard(playerBoard);
+        }
+
+        public override bool[] UpdateMyBoard(string attackedPosition)
+        {
+            var attackedPositionXY = utils.utils.ConvertAttackedPositionToXY(attackedPosition);
+            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
+            return attackResult;
+        }
+
+        public override void UpdateEnemyBoard(string attackedPosition, IEnumerable<bool> attackResult)
+        {
+            //Do we need it?
+        }
+
+        public override bool IsFleetAlive()
+        {
+             return PlayerBoard.Fleet.Exists(ship => ship.IsSunk == false);
         }
 
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)

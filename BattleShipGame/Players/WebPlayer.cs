@@ -1,4 +1,5 @@
-﻿using ConsoleApp7.Board;
+﻿using System.Collections.Generic;
+using ConsoleApp7.Board;
 
 namespace ConsoleApp7.Game
 {
@@ -10,6 +11,21 @@ namespace ConsoleApp7.Game
         }
 
         protected override void SetShips(Ocean PlayerBoard)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool[] UpdateMyBoard(string attackedPosition)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void UpdateEnemyBoard(string attackedPosition, IEnumerable<bool> attackResult)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override bool IsFleetAlive()
         {
             throw new System.NotImplementedException();
         }

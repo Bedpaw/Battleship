@@ -11,7 +11,7 @@ namespace ConsoleApp7.Board
 {
     public class Ocean
     {
-        private static List<Ship> Fleet = new List<Ship>();
+        public List<Ship> Fleet = new List<Ship>();
         public List<List<Field>> board ;
         protected int initX;
         protected int initY;
@@ -32,10 +32,14 @@ namespace ConsoleApp7.Board
                 if (newShip.Orientation == 1)
                 {
                     board[PosXY[0]+i][PosXY[1]].shipOn = newShip;
+                    board[PosXY[0]+i][PosXY[1]].isShipOn = true;
+
                 }
                 else if(newShip.Orientation == 2)
                 {
                     board[PosXY[0]][PosXY[1]+i].shipOn = newShip;
+                    board[PosXY[0]+i][PosXY[1]].isShipOn = true;
+
                 }
             }
             
@@ -58,6 +62,23 @@ namespace ConsoleApp7.Board
             return firstLevelList;
         }
 
+        public bool[] GetShot(int[] attackedPostionXY)
+        {    
+            var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
+            var isAttackSuccess = shotField.isShipOn;
+            var isHitAndSink = false;
+            
+            shotField.fieldIsShut = true;
+            
+            if (isAttackSuccess)
+            {
+                shotField.shipOn.Size--;
+                isHitAndSink = shotField.shipOn.IsSunk;
+            } 
+
+            return new[] {isAttackSuccess, isHitAndSink};
+        }
+ 
         public StringBuilder MapDivider()
         {
             StringBuilder sb = new StringBuilder();

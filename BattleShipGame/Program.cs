@@ -1,5 +1,7 @@
 ﻿
 
+using ConsoleApp7.tests;
+
 namespace ConsoleApp7
 {
     

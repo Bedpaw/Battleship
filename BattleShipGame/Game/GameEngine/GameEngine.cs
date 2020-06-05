@@ -2,6 +2,8 @@
 {
     public class GameEngine
     {
+        public static Game game;
+        
         
     }
 }

@@ -40,7 +40,6 @@ namespace ConsoleApp7.Board
             points[0] = Convert.ToInt32(ReadLine());
             WriteLine("Position Y: ");
             points[1] = Convert.ToInt32(ReadLine());
-            // WriteLine($"{points[0]} | {points[1]}");
             return points;
         }
 
@@ -53,8 +52,6 @@ namespace ConsoleApp7.Board
                 new Destroyer(),
                 new Submarine(),
             };
-            WriteLine("Arrrayyship");
-            WriteLine(arrayShips.Count);
 
             return arrayShips;
         }
@@ -67,9 +64,8 @@ namespace ConsoleApp7.Board
             {
                 
                 ship.Orientation = AskForOrientation();
-                Console.WriteLine("OOOOOOOOOOOOOOOO");
                 ship.StartPositions = ShipStartPoint(playerBoard, ship.Size);
-                Console.WriteLine($"{ship.Name}");
+                WriteLine($" You set {ship.Name} in {ship.StartPositions[0]} {ship.StartPositions[1]}");
                 playerBoard.AddNewShip(ship);
             }
         }

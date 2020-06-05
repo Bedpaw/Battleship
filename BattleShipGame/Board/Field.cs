@@ -9,13 +9,12 @@ namespace ConsoleApp7.Board
         {
             int posX = x;
             int posY = y;
-            bool fieldIsShut = false;
-            bool isShipOn = false;
-            Ship shipOn;
 
         }
         public char fieldSymbol = '~';
         public Ship shipOn;
+        public bool isShipOn = false;
+        public bool fieldIsShut = false;
 
 
         public string ReturnSymbolWithColor()

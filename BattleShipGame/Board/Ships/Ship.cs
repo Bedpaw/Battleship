@@ -20,9 +20,7 @@ namespace ConsoleApp7.Board
         public int Orientation { get; set; }
         
         public int[] StartPositions { get; set; }
-        
-        public bool checkIfSunk { get; set; }
-        
 
+        public bool IsSunk => Size == 0;
     }
 }
