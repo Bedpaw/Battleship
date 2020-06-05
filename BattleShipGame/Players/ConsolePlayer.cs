@@ -26,10 +26,8 @@ namespace ConsoleApp7.Players
         public override string Attack()
         {
             string attackedPosition;
-            
-            DisplaySwapPlayers(PlayerNick);
             do
-            {   Console.Clear();
+            {   
                 Console.WriteLine($"{PlayerNick}, please input position to attack: "); 
                 attackedPosition = Console.ReadLine()?.ToUpper();
                 

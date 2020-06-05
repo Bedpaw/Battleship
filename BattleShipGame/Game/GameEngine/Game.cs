@@ -58,7 +58,8 @@ namespace ConsoleApp7.Game
         {
             bool isHitAndSink;
             do
-            {   
+            {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
+                //Display both oceans (AttackingPlayer.board, DefendingPlayer.boar)
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
                 
