@@ -7,15 +7,15 @@ namespace ConsoleApp7.Game
 {
     public class Game
     {
-        Player player1;
-        Player player2;
-        private Player AttackingPlayer;
-        private Player DefendingPlayer;
+        ConsolePlayer player1;
+        ConsolePlayer player2;
+        private ConsolePlayer AttackingPlayer;
+        private ConsolePlayer DefendingPlayer;
         
         public Game(PlayerAI AIplayer)
         {
             AttackingPlayer = player1 = new ConsolePlayer();
-            DefendingPlayer = player2 = AIplayer;
+            // DefendingPlayer = player2 = AIplayer;
         }
         public Game()
         {

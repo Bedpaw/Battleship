@@ -64,9 +64,11 @@ namespace ConsoleApp7.Board
 
         public bool[] GetShot(int[] attackedPostionXY)
         {    
+            WriteLine($"{attackedPostionXY[0]}{attackedPostionXY[1]}");
             var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
             var isAttackSuccess = shotField.isShipOn;
             var isHitAndSink = false;
+            
             
             shotField.fieldIsShut = true;
             
@@ -114,9 +116,7 @@ namespace ConsoleApp7.Board
                 foreach (var element in row)
                 {
                     string cell;
-                    BackgroundColor = ConsoleColor.DarkBlue;
                     cell = element.ReturnSymbolWithColor();
-                    ResetColor();
                     ContainerRowLine.Append(cell);
                 }
 
@@ -139,33 +139,27 @@ namespace ConsoleApp7.Board
             }
             return playerOcean;
         }
-        
-        // Players gonna keep boards
-        // For now...
-        // ProperOne
-        // public void DisplayBothOceans(List<String> MyOcean, List<String> EnemyOcean)
-        // Version for testing
-        public void DisplayBothOceans()
+        public static void DisplayMyOceans(List<Board> MyOcean)
         {
-            // For testing
-            List<String> OceanToDisplay1 = JoinPartsToArray();
-            List<String> OceanToDisplay2 = JoinPartsToArray();
 
-            for (int i = 0; i < OceanToDisplay1.Count; i++)
+            for (int i = 0; i < MyOcean.Capacity; i++)
             {
-                Write(OceanToDisplay1[i]);
+                Write(MyOcean[i]);
                 Write(MapDivider());
-                Write(OceanToDisplay2[i]);
                 WriteLine();
             }
-            // ProperOne
-            // for (int i = 0; i < OceanToDisplay1.Capacity; i++)
-            // {
-            //     Write(MyOcean[i]);
-            //     Write(MapDivider());
-            //     Write(EnemyOcean[i]);
-            //     WriteLine();
-            // }
+        }
+        
+        public static void DisplayBothOceans(List<Board> MyOcean, List<Board> EnemyOcean)
+        {
+
+            for (int i = 0; i < MyOcean.Capacity; i++)
+            {
+                Write(MyOcean[i]);
+                Write(MapDivider());
+                Write(EnemyOcean[i]);
+                WriteLine();
+            }
         }
     }
 }
