@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using ConsoleApp7.Board.ShipType;
 using ConsoleApp7.Players;
+using ConsoleApp7.utils;
 
 namespace ConsoleApp7.Board
 {
@@ -34,23 +35,29 @@ namespace ConsoleApp7.Board
         {
             //TODO
             //Dopisać funkcje walidujące i sprawdzić to przed returnem;
-            int [] points = new int[2];
-            WriteLine("Please select TOP-LEFT field: ");
-            WriteLine("Position X: ");
-            points[0] = Convert.ToInt32(ReadLine());
-            WriteLine("Position Y: ");
-            points[1] = Convert.ToInt32(ReadLine());
-            return points;
+            
+            
+            string startPosition;
+            do
+            {   
+                WriteLine("Please select TOP-LEFT field: ");
+                startPosition = ReadLine()?.ToUpper();
+                
+            } while (Validation.IsProperStartPosition(startPosition, playerBoard) == false);
+
+            return utils.utils.ConvertAttackedPositionToXY(startPosition);
+
+
         }
 
         public static List<Ship> CreateFleet()
         {
             var arrayShips = new List<Ship>
             {
-                new Battleship(),
-                new Carrier(),
                 new Destroyer(),
                 new Submarine(),
+                new Battleship(),
+                new Carrier()
             };
 
             return arrayShips;
@@ -62,7 +69,8 @@ namespace ConsoleApp7.Board
 
             foreach (var ship in fleet)
             {
-                
+                playerBoard.DisplayMyOcean(playerBoard);
+                WriteLine($"Set {ship.Name} which has size on board: {ship.Size}");
                 ship.Orientation = AskForOrientation();
                 ship.StartPositions = ShipStartPoint(playerBoard, ship.Size);
                 WriteLine($" You set {ship.Name} in {ship.StartPositions[0]} {ship.StartPositions[1]}");

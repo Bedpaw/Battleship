@@ -6,10 +6,10 @@
         {
             Name = "Battleship";
             Size = 4;
-            // fieldSymbol =
+            // fieldSymbol = 'B';
             // Horizont = isHorizont;
         }
 
-        public char fieldSymbol = 'B';
+        // public char fieldSymbol { get; set; }
     }
 }

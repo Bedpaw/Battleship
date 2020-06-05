@@ -20,7 +20,7 @@ namespace ConsoleApp7.Players
             
             Console.Clear();
             Console.WriteLine("Set your Ships:");
-            /*SetShips(PlayerBoard);*/
+            SetShips(PlayerBoard);
         }
         
         public override string Attack()
@@ -79,7 +79,7 @@ namespace ConsoleApp7.Players
             if (attackResult)
             {
                 if (isHitAndSink) messageToDisplay += "Your ship has been drown!";
-                else messageToDisplay += "You ship has been hit!";
+                else messageToDisplay += "Your ship has been hit!";
             }
             else
             {

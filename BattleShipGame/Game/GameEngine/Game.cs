@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using ConsoleApp7.Board;
 using ConsoleApp7.Players;
 
 namespace ConsoleApp7.Game
@@ -43,13 +44,14 @@ namespace ConsoleApp7.Game
         private void DisplayAttackResults(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             if (AttackingPlayer is IDisplayingAttackResults)
-            {   Console.WriteLine($"Display {AttackingPlayer.PlayerNick} board..."); //Display both oceans (AttackingPlayer.board, DefendingPlayer.boar)
+            {   
+                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 AttackingPlayer.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
             }
             if (DefendingPlayer is IDisplayingAttackResults)
             {
                 ConsolePlayer.DisplaySwapPlayers(DefendingPlayer.PlayerNick); // Only for console -> to change in future
-                Console.WriteLine($"Display {DefendingPlayer.PlayerNick} board...");//Display both oceans (AttackingPlayer.board, DefendingPlayer.boar)
+                Ocean.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
                 DefendingPlayer.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
                 
             }
@@ -60,6 +62,8 @@ namespace ConsoleApp7.Game
             do
             {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
                 //Display both oceans (AttackingPlayer.board, DefendingPlayer.boar)
+                // Ocean.DisplayMyOcean(AttackingPlayer.PlayerBoard);
+                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
                 

@@ -17,10 +17,10 @@ namespace ConsoleApp7.Board
         public bool fieldIsShut = false;
 
 
-        public string ReturnSymbolWithColor()
-        {
-            string returnSymbol = Char.ToString(fieldSymbol);
-            return returnSymbol;
-        }
+        // public string ReturnSymbol()
+        // {
+        //     string returnSymbol = Char.ToString(fieldSymbol);
+        //     return returnSymbol;
+        // }
     }
 }

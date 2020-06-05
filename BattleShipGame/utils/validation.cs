@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ConsoleApp7.Board;
 
 namespace ConsoleApp7.utils
 {
@@ -38,6 +39,17 @@ namespace ConsoleApp7.utils
             
             return true;
 
+        }
+
+        public static bool IsProperStartPosition(string startPosition, Ocean myBoard)
+        {
+            var charsToValidate = startPosition.ToCharArray();
+
+            if (charsToValidate.Length != 2 && charsToValidate.Length != 3) return false;
+            if (!IsLetterFromAToJ(charsToValidate[0])) return false;
+            if (!IsNumberFrom1To10(charsToValidate)) return false;
+
+            return true;
         }
     }
 }

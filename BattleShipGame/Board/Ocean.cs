@@ -38,7 +38,7 @@ namespace ConsoleApp7.Board
                 else if(newShip.Orientation == 2)
                 {
                     board[PosXY[0]][PosXY[1]+i].shipOn = newShip;
-                    board[PosXY[0]+i][PosXY[1]].isShipOn = true;
+                    board[PosXY[0]][PosXY[1]+i].isShipOn = true;
 
                 }
             }
@@ -61,13 +61,11 @@ namespace ConsoleApp7.Board
         }
 
         public bool[] GetShot(int[] attackedPostionXY)
-        {    
-            /*WriteLine($"{attackedPostionXY[0]}{attackedPostionXY[1]}");*/
+        {
             var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
             var isAttackSuccess = shotField.isShipOn;
             var isHitAndSink = false;
-            
-            
+
             shotField.fieldIsShut = true;
             
             if (isAttackSuccess)
@@ -79,12 +77,13 @@ namespace ConsoleApp7.Board
             return new[] {isAttackSuccess, isHitAndSink};
         }
  
-        public StringBuilder MapDivider()
+        public static StringBuilder MapDivider()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(new String(' ', 0));
             return sb;
         }
+        
         public string CreateUpperCords()
         {
             StringBuilder sb = new StringBuilder();
@@ -102,7 +101,33 @@ namespace ConsoleApp7.Board
             return x.ToString().Length;
         }
 
-        public List<String> CreateMiddleMap()
+        private char SetFieldSymbol(Field field, bool isEnemy)
+        {
+            if (field.isShipOn)
+            {
+                if (field.fieldIsShut)
+                {
+                    return 'X';
+                }
+                else
+                {
+                    return isEnemy?'~':'S';
+                }
+            }
+            else
+            {
+                if (field.fieldIsShut)
+                {
+                    return 'O';
+                }
+                else
+                {
+                    return '~';
+                }
+            }
+        }
+
+        public List<string> CreateMiddleMap(bool isEnemy)
         {
             int i = 0;
             List<String> MiddleMap = new List<string>();
@@ -113,8 +138,7 @@ namespace ConsoleApp7.Board
                 ContainerRowLine.Append($"{new String(' ', (10 - CalcLengthOfInt(i+1)))}{i+1} ");
                 foreach (var element in row)
                 {
-                    string cell;
-                    cell = element.ReturnSymbolWithColor();
+                    var cell = SetFieldSymbol(element, isEnemy);
                     ContainerRowLine.Append(cell);
                 }
 
@@ -124,40 +148,45 @@ namespace ConsoleApp7.Board
             return MiddleMap;
         }
 
-        public List<String> JoinPartsToArray()
+        public List<String> JoinPartsToArray(Ocean someOcean, bool isEnemy = false)
         {
             List<String> playerOcean = new List<string>();
-            string cordsOcean = CreateUpperCords();
-            List<String> oceanDrawing = CreateMiddleMap();
+            string cordsOcean = someOcean.CreateUpperCords();
+            List<String> oceanDrawing = someOcean.CreateMiddleMap(isEnemy);
             playerOcean.Add(cordsOcean);
 
             foreach (var row in oceanDrawing)
             {
                 playerOcean.Add(row);
             }
+            
             return playerOcean;
         }
-        /*public static void DisplayMyOceans(List<Board> MyOcean)
-        {
-
-            for (int i = 0; i < MyOcean.Capacity; i++)
-            {
-                Write(MyOcean[i]);
-                Write(MapDivider());
-                WriteLine();
-            }
-        }*/
         
-        /*public static void DisplayBothOceans(List<Board> MyOcean, List<Board> EnemyOcean)
-        {
+        
+         public void DisplayMyOcean(Ocean MyOcean)
+         {
+             var arrOcean = MyOcean.JoinPartsToArray(MyOcean);
 
-            for (int i = 0; i < MyOcean.Capacity; i++)
-            {
-                Write(MyOcean[i]);
-                Write(MapDivider());
-                Write(EnemyOcean[i]);
-                WriteLine();
-            }
-        }*/
+             foreach (var row in arrOcean)
+             {
+                 WriteLine(row);
+             }
+             
+         }
+         
+         public static void DisplayBothOceans(Ocean MyOcean, Ocean EnemyOcean)
+         {
+
+             var arrOcean1 = MyOcean.JoinPartsToArray(MyOcean);
+             var arrOcean2 = EnemyOcean.JoinPartsToArray(EnemyOcean, true);
+             for (int i = 0; i < arrOcean2.Count; i++)
+             {
+                 Write(arrOcean1[i]);
+                 Write(MapDivider());
+                 Write(arrOcean2[i]);
+                 WriteLine();
+             }
+         }
     }
 }

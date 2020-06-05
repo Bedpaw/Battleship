@@ -17,6 +17,7 @@ namespace ConsoleApp7.Board
         public string Name { get; set; }
         public int Size{ get; set; }
         public int Hits { get; set; }
+        public static char fieldSymbol = 'S';
         public int Orientation { get; set; }
         
         public int[] StartPositions { get; set; }

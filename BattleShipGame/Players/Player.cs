@@ -6,12 +6,12 @@ namespace ConsoleApp7.Game
 {
     public abstract class Player
     {
-        protected Ocean PlayerBoard;
+        public Ocean PlayerBoard;
         public string PlayerNick;
         protected Player()
         {
             PlayerBoard = new Ocean(10, 10);
-            /*SetShips(PlayerBoard);*/
+            // SetShips(PlayerBoard);
         }
         
 
