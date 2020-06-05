@@ -7,13 +7,12 @@ namespace ConsoleApp7.utils
     {
         public static int[] ConvertAttackedPositionToXY(string attackedPosition)
         {
-            char [] aP = attackedPosition.ToCharArray();
-            var bigLetters = new List<char>
+            var columnLetters = new List<char>
             {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
             };
-            var x = bigLetters.IndexOf(aP[0]);
-            var y = attackedPosition.Length == 3 ? 9 : int.Parse(aP[1].ToString());
+            var x = columnLetters.IndexOf(attackedPosition[0]);
+            var y = attackedPosition.Length == 3 ? 9 : int.Parse(attackedPosition[1].ToString()) - 1;
             return new[] {x, y};
         }
     }

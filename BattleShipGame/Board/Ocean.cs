@@ -42,8 +42,6 @@ namespace ConsoleApp7.Board
 
                 }
             }
-            
-            
         }
         public static List<List<Field>> initNewBoard(int sizeX, int sizeY)
         {
@@ -64,7 +62,7 @@ namespace ConsoleApp7.Board
 
         public bool[] GetShot(int[] attackedPostionXY)
         {    
-            WriteLine($"{attackedPostionXY[0]}{attackedPostionXY[1]}");
+            /*WriteLine($"{attackedPostionXY[0]}{attackedPostionXY[1]}");*/
             var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
             var isAttackSuccess = shotField.isShipOn;
             var isHitAndSink = false;
@@ -139,7 +137,7 @@ namespace ConsoleApp7.Board
             }
             return playerOcean;
         }
-        public static void DisplayMyOceans(List<Board> MyOcean)
+        /*public static void DisplayMyOceans(List<Board> MyOcean)
         {
 
             for (int i = 0; i < MyOcean.Capacity; i++)
@@ -148,9 +146,9 @@ namespace ConsoleApp7.Board
                 Write(MapDivider());
                 WriteLine();
             }
-        }
+        }*/
         
-        public static void DisplayBothOceans(List<Board> MyOcean, List<Board> EnemyOcean)
+        /*public static void DisplayBothOceans(List<Board> MyOcean, List<Board> EnemyOcean)
         {
 
             for (int i = 0; i < MyOcean.Capacity; i++)
@@ -160,6 +158,6 @@ namespace ConsoleApp7.Board
                 Write(EnemyOcean[i]);
                 WriteLine();
             }
-        }
+        }*/
     }
 }

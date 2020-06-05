@@ -25,23 +25,18 @@ namespace ConsoleApp7.Game
                 switch (selector)
                 {
                     case 1:
-                        // Ocean gameOcean = new Ocean(10, 10);
-                        // gameOcean.DisplayBothOceans();
                         var game = new Game();
                         game.GameLoop();
-                        
-                        
+                        game.DisplayEndGameMessage();
                         break;
                     case 2:
-                        WriteLine("2222222");
+                        WriteLine("Not implemented yet");
                         break;
-
                     case 3:
-                        WriteLine("3333333");
+                        WriteLine("Not implemented yet");
                         break;
-
                     case 4:
-                        WriteLine("4444444");
+                        WriteLine("Not implemented yet");
                         break;
                     case 5:
                         Write("Are you sure you want to exit? [y/n]: ");
@@ -58,7 +53,7 @@ namespace ConsoleApp7.Game
                         break;
 
                     default:
-                        WriteLine("You have chosen worng value please try again!");
+                        WriteLine("You have chosen wrong value please try again!");
                         break;
                         
                 }

@@ -7,18 +7,12 @@ namespace ConsoleApp7.utils
     {
 
         public static bool IsLetterFromAToJ(char letter)
-        {    
-            var smallLetters = new List<char>
-            {
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'
-            };
-            var bigLetters = new List<char>
+        {
+            var columnLetters = new List<char>
             {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
             };
-            if (bigLetters.Contains(letter)) return true;
-            if (smallLetters.Contains(letter)) return true;
-            return false;
+            return columnLetters.Contains(letter);
         }
 
         public static bool IsNumberFrom1To10(char [] charsToValidate)

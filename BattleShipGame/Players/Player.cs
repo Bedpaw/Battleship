@@ -7,11 +7,10 @@ namespace ConsoleApp7.Game
     public abstract class Player
     {
         protected Ocean PlayerBoard;
-        protected Ocean EnemyBoard;
+        public string PlayerNick;
         protected Player()
         {
             PlayerBoard = new Ocean(10, 10);
-            EnemyBoard = new Ocean(10, 10);
             /*SetShips(PlayerBoard);*/
         }
         
@@ -19,8 +18,7 @@ namespace ConsoleApp7.Game
         public abstract string Attack();
         protected abstract void SetShips(Ocean playerBoard);
         public abstract bool[] UpdateMyBoard(string attackedPosition);
-        public abstract void UpdateEnemyBoard(string attackedPosition, IEnumerable<bool> attackResult);
-
+        
         public abstract bool IsFleetAlive();
         
         

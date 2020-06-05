@@ -27,11 +27,6 @@ namespace ConsoleApp7.Game
             throw new System.NotImplementedException();
         }
 
-        public override void UpdateEnemyBoard(string attackedPosition, IEnumerable<bool> attackResult)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override bool IsFleetAlive()
         {
             throw new System.NotImplementedException();
