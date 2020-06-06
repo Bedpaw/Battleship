@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ConsoleApp7.Board;
+using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Game;
 using ConsoleApp7.utils;
 

@@ -2,14 +2,13 @@
 {
     public class Battleship : Ship
     {
+
         public Battleship()
         {
             Name = "Battleship";
             Size = 4;
-            // fieldSymbol = 'B';
-            // Horizont = isHorizont;
+            FieldSymbol = 'B';
         }
 
-        // public char fieldSymbol { get; set; }
     }
 }

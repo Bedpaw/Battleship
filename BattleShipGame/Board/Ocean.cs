@@ -31,14 +31,14 @@ namespace ConsoleApp7.Board
                 int[] PosXY = newShip.StartPositions;
                 if (newShip.Orientation == 1)
                 {
-                    board[PosXY[0]+i][PosXY[1]].shipOn = newShip;
-                    board[PosXY[0]+i][PosXY[1]].isShipOn = true;
+                    board[PosXY[0]+i][PosXY[1]].ShipOn = newShip;
+                    board[PosXY[0]+i][PosXY[1]].IsShipOn = true;
 
                 }
                 else if(newShip.Orientation == 2)
                 {
-                    board[PosXY[0]][PosXY[1]+i].shipOn = newShip;
-                    board[PosXY[0]][PosXY[1]+i].isShipOn = true;
+                    board[PosXY[0]][PosXY[1]+i].ShipOn = newShip;
+                    board[PosXY[0]][PosXY[1]+i].IsShipOn = true;
 
                 }
             }
@@ -52,7 +52,7 @@ namespace ConsoleApp7.Board
                List<Field> secondLevelList = new List<Field>();
                 for (int j = 0; j < sizeY; j++)
                 { 
-                    Field tempField = new Field(i, j);
+                    Field tempField = new Field();
                     secondLevelList.Add(tempField);
                 }
                 firstLevelList.Add(secondLevelList);
@@ -63,15 +63,15 @@ namespace ConsoleApp7.Board
         public bool[] GetShot(int[] attackedPostionXY)
         {
             var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
-            var isAttackSuccess = shotField.isShipOn;
+            var isAttackSuccess = shotField.IsShipOn;
             var isHitAndSink = false;
 
-            shotField.fieldIsShut = true;
+            shotField.FieldIsShut = true;
             
             if (isAttackSuccess)
             {
-                shotField.shipOn.Size--;
-                isHitAndSink = shotField.shipOn.IsSunk;
+                shotField.ShipOn.Size--;
+                isHitAndSink = shotField.ShipOn.IsSunk;
             } 
 
             return new[] {isAttackSuccess, isHitAndSink};
@@ -100,33 +100,7 @@ namespace ConsoleApp7.Board
         {
             return x.ToString().Length;
         }
-
-        private char SetFieldSymbol(Field field, bool isEnemy)
-        {
-            if (field.isShipOn)
-            {
-                if (field.fieldIsShut)
-                {
-                    return 'X';
-                }
-                else
-                {
-                    return isEnemy?'~':'S';
-                }
-            }
-            else
-            {
-                if (field.fieldIsShut)
-                {
-                    return 'O';
-                }
-                else
-                {
-                    return '~';
-                }
-            }
-        }
-
+        
         public List<string> CreateMiddleMap(bool isEnemy)
         {
             int i = 0;
@@ -136,12 +110,11 @@ namespace ConsoleApp7.Board
             {
                 StringBuilder ContainerRowLine = new StringBuilder();
                 ContainerRowLine.Append($"{new String(' ', (10 - CalcLengthOfInt(i+1)))}{i+1} ");
-                foreach (var element in row)
+                foreach (var field in row)
                 {
-                    var cell = SetFieldSymbol(element, isEnemy);
-                    ContainerRowLine.Append(cell);
+                    if (isEnemy && field.IsShipOn && !field.FieldIsShut) ContainerRowLine.Append('~');
+                    else ContainerRowLine.Append(field.FieldSymbol);
                 }
-
                 MiddleMap.Add(ContainerRowLine.ToString());
                 i++;
             }
@@ -162,9 +135,7 @@ namespace ConsoleApp7.Board
             
             return playerOcean;
         }
-        
-        
-         public void DisplayMyOcean(Ocean MyOcean)
+        public void DisplayMyOcean(Ocean MyOcean)
          {
              var arrOcean = MyOcean.JoinPartsToArray(MyOcean);
 
@@ -174,7 +145,6 @@ namespace ConsoleApp7.Board
              }
              
          }
-         
          public static void DisplayBothOceans(Ocean MyOcean, Ocean EnemyOcean)
          {
 

@@ -2,14 +2,11 @@
 {
     public class Submarine : Ship
     {
-        
         public Submarine()
         {
             Name = "Submarine";
             Size = 3;
-            // Horizont = isHorizont;
-            
+            FieldSymbol = 'S';
         }
-        public char fieldSymbol = 'B';
     }
 }

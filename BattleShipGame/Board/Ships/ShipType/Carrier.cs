@@ -6,8 +6,7 @@
         {
             Name = "Aircraft Carrier";
             Size = 5;
-            // Horizont = isHorizont; 
+            FieldSymbol = 'C';
         }
-        public char fieldSymbol = 'B';
     }
 }

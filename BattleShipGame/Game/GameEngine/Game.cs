@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using ConsoleApp7.Board;
+﻿using ConsoleApp7.Board;
 using ConsoleApp7.Players;
 
 namespace ConsoleApp7.Game
@@ -31,7 +28,7 @@ namespace ConsoleApp7.Game
         private bool IsNotEndGame(bool isHitAndSink)
         {   
             if (isHitAndSink) return DefendingPlayer.IsFleetAlive();
-            else return true;
+            return true;
         }
 
         private void SwitchPLayers()
@@ -61,9 +58,8 @@ namespace ConsoleApp7.Game
             bool isHitAndSink;
             do
             {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
-                //Display both oceans (AttackingPlayer.board, DefendingPlayer.boar)
-                // Ocean.DisplayMyOcean(AttackingPlayer.PlayerBoard);
                 Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+                
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
                 

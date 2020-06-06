@@ -6,8 +6,7 @@
         {
             Name = "Destroyer";
             Size = 2;
-            // Horizont = isHorizont;
+            FieldSymbol = 'D';
         }
-        public char fieldSymbol = 'B';
     }
 }

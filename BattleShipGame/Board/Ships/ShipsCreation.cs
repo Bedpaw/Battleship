@@ -1,42 +1,29 @@
 ﻿using System;
-using System.Collections;
-using static System.Console;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using ConsoleApp7.Board.ShipType;
-using ConsoleApp7.Players;
 using ConsoleApp7.utils;
+using static System.Console;
 
-namespace ConsoleApp7.Board
+namespace ConsoleApp7.Board.Ships
 {
-    public class ShipsCreation
+    public static class ShipsCreation
     {
-        enum AvailableShips
+        private static int AskForOrientation()
         {
-            Destroyer,
-            Submarine,
-            Battleship,
-            Carrier,
-        }
-        
-        public static int AskForOrientation() // HA GAY!
-        {
-            WriteLine("Please select orientation: ");
-            WriteLine("1. Verctical ");
-            WriteLine("2. Horizontal ");
-            int input = Convert.ToInt32(ReadLine());
-            return input;
+            string input;
+            do
+            {
+                WriteLine("Please select orientation: ");
+                WriteLine("1. Vertical ");
+                WriteLine("2. Horizontal ");
+                input = ReadLine();
+            } while (input != "1" && input != "2");
+            return Convert.ToInt32(input);
             
         }
 
-        public static int[] ShipStartPoint(Ocean playerBoard, int shipSize)
+        private static int[] ShipStartPoint(Ocean playerBoard, int shipSize)
         {
-            //TODO
-            //Dopisać funkcje walidujące i sprawdzić to przed returnem;
-            
-            
             string startPosition;
             do
             {   
@@ -46,34 +33,31 @@ namespace ConsoleApp7.Board
             } while (Validation.IsProperStartPosition(startPosition, playerBoard) == false);
 
             return utils.utils.ConvertAttackedPositionToXY(startPosition);
-
-
         }
-
-        public static List<Ship> CreateFleet()
+        private static List<Ship> CreateFleet()
         {
             var arrayShips = new List<Ship>
             {
                 new Destroyer(),
-                new Submarine(),
+                /*new Submarine(),
                 new Battleship(),
-                new Carrier()
+                new Carrier()*/
             };
 
             return arrayShips;
         }
-
         public static void AddFleetToPlayerBoard(Ocean playerBoard)
         {
             var fleet = CreateFleet();
 
             foreach (var ship in fleet)
-            {
+            {  
+                Clear(); 
                 playerBoard.DisplayMyOcean(playerBoard);
                 WriteLine($"Set {ship.Name} which has size on board: {ship.Size}");
+                
                 ship.Orientation = AskForOrientation();
                 ship.StartPositions = ShipStartPoint(playerBoard, ship.Size);
-                WriteLine($" You set {ship.Name} in {ship.StartPositions[0]} {ship.StartPositions[1]}");
                 playerBoard.AddNewShip(ship);
             }
         }

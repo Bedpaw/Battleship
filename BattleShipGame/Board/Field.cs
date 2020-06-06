@@ -5,22 +5,17 @@ namespace ConsoleApp7.Board
 {
     public class Field
     {
-        public Field(int x, int y)
+        public Ship ShipOn { get; set; }
+        public bool IsShipOn { get; set; }
+        public bool FieldIsShut { get; set; }
+        public char FieldSymbol
         {
-            int posX = x;
-            int posY = y;
-
+            get
+            {
+                if (FieldIsShut && IsShipOn) return 'X';
+                if (!FieldIsShut && IsShipOn) return ShipOn.FieldSymbol;
+                return FieldIsShut ? 'O' : '~';
+            }
         }
-        public char fieldSymbol = '~';
-        public Ship shipOn;
-        public bool isShipOn = false;
-        public bool fieldIsShut = false;
-
-
-        // public string ReturnSymbol()
-        // {
-        //     string returnSymbol = Char.ToString(fieldSymbol);
-        //     return returnSymbol;
-        // }
     }
 }
