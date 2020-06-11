@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ConsoleApp7.utils
 {
-    public class utils
+    public static class Utils
     {
         public static int[] ConvertAttackedPositionToXY(string attackedPosition)
         {

@@ -1,7 +1,8 @@
 ﻿using ConsoleApp7.Board;
+using ConsoleApp7.Interface;
 using ConsoleApp7.Players;
 
-namespace ConsoleApp7.Game
+namespace ConsoleApp7.Game.GameEngine
 {
     public class Game
     {

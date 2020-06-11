@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp7.Board.ShipType
+﻿namespace ConsoleApp7.Board.Ships.ShipType
 {
     public class Battleship : Ship
     {

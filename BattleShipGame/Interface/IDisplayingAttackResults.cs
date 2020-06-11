@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp7.Game
+﻿namespace ConsoleApp7.Interface
 {
     public interface IDisplayingAttackResults
     {

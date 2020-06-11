@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using ConsoleApp7.Board;
+﻿using ConsoleApp7.Board;
+using ConsoleApp7.Game;
 
-namespace ConsoleApp7.Game
+namespace ConsoleApp7.Players
 {
     public class PlayerAI : Player
     {
-        private string DifficultyLevel;
-        
+        public string DifficultyLevel { get;}
+
         public PlayerAI()
         {
             DifficultyLevel = SetDifficultyLevel();

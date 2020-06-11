@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ConsoleApp7.Board.Ships;
 
 namespace ConsoleApp7.Board
 {

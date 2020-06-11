@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ConsoleApp7.Board;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Game;
+using ConsoleApp7.Interface;
 using ConsoleApp7.utils;
 
 namespace ConsoleApp7.Players
@@ -45,7 +46,7 @@ namespace ConsoleApp7.Players
 
         public override bool[] UpdateMyBoard(string attackedPosition)
         {
-            var attackedPositionXY = utils.utils.ConvertAttackedPositionToXY(attackedPosition);
+            var attackedPositionXY = utils.Utils.ConvertAttackedPositionToXY(attackedPosition);
             var attackResult = PlayerBoard.GetShot(attackedPositionXY);
             return attackResult;
         }

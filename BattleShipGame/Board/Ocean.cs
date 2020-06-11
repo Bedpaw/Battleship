@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using static System.Console;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using ConsoleApp7.Board.Ships;
 
 namespace ConsoleApp7.Board
 {
@@ -13,8 +10,8 @@ namespace ConsoleApp7.Board
     {
         public List<Ship> Fleet = new List<Ship>();
         public List<List<Field>> board ;
-        protected int initX;
-        protected int initY;
+        public int initX;
+        public int initY;
 
         public Ocean(int initX, int initY)
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConsoleApp7.Board.ShipType;
+using ConsoleApp7.Board.Ships.ShipType;
 using ConsoleApp7.utils;
 using static System.Console;
 
@@ -22,7 +22,7 @@ namespace ConsoleApp7.Board.Ships
             
         }
 
-        private static int[] ShipStartPoint(Ocean playerBoard, int shipSize)
+        private static int[] ShipStartPoint(Ocean playerBoard, Ship ship)
         {
             string startPosition;
             do
@@ -30,17 +30,17 @@ namespace ConsoleApp7.Board.Ships
                 WriteLine("Please select TOP-LEFT field: ");
                 startPosition = ReadLine()?.ToUpper();
                 
-            } while (Validation.IsProperStartPosition(startPosition, playerBoard) == false);
+            } while (Validation.IsProperStartPosition(startPosition, playerBoard, ship) == false);
 
-            return utils.utils.ConvertAttackedPositionToXY(startPosition);
+            return Utils.ConvertAttackedPositionToXY(startPosition);
         }
         private static List<Ship> CreateFleet()
         {
             var arrayShips = new List<Ship>
             {
                 new Destroyer(),
-                /*new Submarine(),
-                new Battleship(),
+                new Submarine(),
+                /*new Battleship(),
                 new Carrier()*/
             };
 
@@ -57,7 +57,7 @@ namespace ConsoleApp7.Board.Ships
                 WriteLine($"Set {ship.Name} which has size on board: {ship.Size}");
                 
                 ship.Orientation = AskForOrientation();
-                ship.StartPositions = ShipStartPoint(playerBoard, ship.Size);
+                ship.StartPositions = ShipStartPoint(playerBoard, ship);
                 playerBoard.AddNewShip(ship);
             }
         }

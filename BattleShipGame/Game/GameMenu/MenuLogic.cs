@@ -1,10 +1,6 @@
-﻿using System;
-using System.Security;
-using static System.Console;
-
-namespace ConsoleApp7.Game
+﻿namespace ConsoleApp7.Game.GameMenu
 {
-    public class MenuLogic
+    public static class MenuLogic
     {
         public static void DisplayMainMenu()
         {

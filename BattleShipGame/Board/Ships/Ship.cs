@@ -1,6 +1,6 @@
 ﻿using ConsoleApp7.Interface;
 
-namespace ConsoleApp7.Board
+namespace ConsoleApp7.Board.Ships
 {
     public class Ship: IShip
     {

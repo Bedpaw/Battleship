@@ -1,31 +1,29 @@
 ﻿using System;
-using ConsoleApp7.Board;
 using static System.Console;
-using static System.Text.StringBuilder;
 
-namespace ConsoleApp7.Game
+namespace ConsoleApp7.Game.GameMenu
 {
-    public class GameMenuAtributors
+    public static class GameMenuAtributors
     {
         public static void DisplayMenuOptions()
         {
-            WriteLine($"\n[1] Start new console human vs human game\n" +
-                      $"[2] Start new console human vs AI game\n" +
-                      $"[3] Start new LAN human vs human game\n" +
-                      $"[4] Show high scores\n"+
-                      $"[5] Exit game\n");
+            WriteLine("\n[1] Start new console human vs human game\n" +
+                          "[2] Start new console human vs AI game\n" +
+                          "[3] Start new LAN human vs human game\n" +
+                          "[4] Show high scores\n"+
+                          "[5] Exit game\n");
         }
 
         public static int DisplayMenuChoice()
         {
             Write("Select one option above: ");
-            string input = ReadLine();
-            int selector = Convert.ToInt32(input);
+            var input = ReadLine();
+            var selector = Convert.ToInt32(input);
             
                 switch (selector)
                 {
                     case 1:
-                        var game = new Game();
+                        var game = new GameEngine.Game();
                         game.GameLoop();
                         game.DisplayEndGameMessage();
                         break;
@@ -40,7 +38,7 @@ namespace ConsoleApp7.Game
                         break;
                     case 5:
                         Write("Are you sure you want to exit? [y/n]: ");
-                        ConsoleKeyInfo keyPress = ReadKey();
+                        var keyPress = ReadKey();
                         if (keyPress.Key == ConsoleKey.Y)
                         {
                             Environment.Exit(0);
