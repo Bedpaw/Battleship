@@ -6,7 +6,7 @@ namespace ConsoleApp7.Board.Ships
     {
         public string Name { get; set; }
         public int Size{ get; set; }
-        public char FieldSymbol { get; set; }
+        public string FieldSymbol { get; set; }
         public int Orientation { get; set; }
         public int[] StartPositions { get; set; }
         public bool IsSunk => Size == 0;

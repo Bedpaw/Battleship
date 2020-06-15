@@ -7,7 +7,7 @@
         {
             Name = "Battleship";
             Size = 4;
-            FieldSymbol = 'B';
+            FieldSymbol = " B ";
         }
 
     }

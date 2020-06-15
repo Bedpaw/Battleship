@@ -6,7 +6,7 @@
         {
             Name = "Submarine";
             Size = 3;
-            FieldSymbol = 'S';
+            FieldSymbol = " S ";
         }
     }
 }

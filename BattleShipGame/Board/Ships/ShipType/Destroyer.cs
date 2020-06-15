@@ -6,7 +6,7 @@
         {
             Name = "Destroyer";
             Size = 2;
-            FieldSymbol = 'D';
+            FieldSymbol = " D ";
         }
     }
 }

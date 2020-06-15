@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Board;
+using ConsoleApp7.utils;
 using ConsoleApp7.Game;
 using ConsoleApp7.Interface;
 
@@ -17,7 +18,7 @@ namespace ConsoleApp7.Players
         {
             PlayerBoard = new Ocean(10, 10);
             DifficultyLevel = SetDifficultyLevel();
-            PlayerNick = $"Computer {Difficulty.Easy}";
+            PlayerNick = $"Computer {Difficulty.Easy.ToString()}";
             SetShips(PlayerBoard);
         }
         public enum Difficulty
@@ -69,7 +70,7 @@ namespace ConsoleApp7.Players
 
         public int GenerateOrientation()
         {
-            var randomNumber = utils.Utils.GenerateRandomFromToRange(1, 2);
+            var randomNumber = Utils.GenerateRandomFromToRange(1, 2);
             // ShipOrientation randomOrientation = (ShipOrientation) randomNumber;
             return randomNumber;
         }
@@ -99,7 +100,9 @@ namespace ConsoleApp7.Players
 
         public override bool[] UpdateMyBoard(string attackPosition)
         {
-            throw new NotImplementedException();
+            var attackedPositionXY = Utils.ConvertAttackedPositionToXy(attackPosition);
+            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
+            return attackResult;
         }
 
         public override bool IsFleetAlive()

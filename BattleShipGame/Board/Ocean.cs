@@ -88,7 +88,7 @@ namespace ConsoleApp7.Board
             sb.Append(SpaceHolder);
             for (int i = 65; i < (65 + initY); i++)
             {
-                sb.Append(Convert.ToChar(i));
+                sb.Append($" {Convert.ToChar(i)} ");
             }
             return sb.ToString();
         }
@@ -109,7 +109,7 @@ namespace ConsoleApp7.Board
                 ContainerRowLine.Append($"{new String(' ', (10 - CalcLengthOfInt(i+1)))}{i+1} ");
                 foreach (var field in row)
                 {
-                    if (isEnemy && field.IsShipOn && !field.FieldIsShut) ContainerRowLine.Append('~');
+                    if (isEnemy && field.IsShipOn && !field.FieldIsShut) ContainerRowLine.Append(" . ");
                     else ContainerRowLine.Append(field.FieldSymbol);
                 }
                 MiddleMap.Add(ContainerRowLine.ToString());

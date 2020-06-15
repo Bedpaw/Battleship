@@ -6,7 +6,7 @@
         {
             Name = "Aircraft Carrier";
             Size = 5;
-            FieldSymbol = 'C';
+            FieldSymbol = " C ";
         }
     }
 }
