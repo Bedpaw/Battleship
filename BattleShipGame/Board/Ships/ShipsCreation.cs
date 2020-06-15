@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ConsoleApp7.Board.Ships.ShipType;
 using ConsoleApp7.utils;
+using ConsoleApp7.Players;
 using static System.Console;
 
 namespace ConsoleApp7.Board.Ships
@@ -34,7 +35,7 @@ namespace ConsoleApp7.Board.Ships
 
             return Utils.ConvertAttackedPositionToXY(startPosition);
         }
-        private static List<Ship> CreateFleet()
+        public static List<Ship> CreateFleet()
         {
             var arrayShips = new List<Ship>
             {
@@ -61,6 +62,15 @@ namespace ConsoleApp7.Board.Ships
                 playerBoard.AddNewShip(ship);
             }
         }
+
+        // public static void AddFleetToAiPlayerBoard(Ocean playerBoard)
+        // {
+        //     var fleet = CreateFleet();
+        //     foreach (var ship in fleet)
+        //     {
+        //         ship.Orientation = Players.PlayerAI.ge;
+        //     }
+        // }
         
     }
 }

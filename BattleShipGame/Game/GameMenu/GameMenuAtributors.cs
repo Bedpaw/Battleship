@@ -1,4 +1,5 @@
 ﻿using System;
+using ConsoleApp7.Players;
 using static System.Console;
 
 namespace ConsoleApp7.Game.GameMenu
@@ -24,11 +25,13 @@ namespace ConsoleApp7.Game.GameMenu
                 {
                     case 1:
                         var game = new GameEngine.Game();
-                        game.GameLoop();
+                        game.GameLoopForPlayerVsPlayer();
                         game.DisplayEndGameMessage();
                         break;
                     case 2:
-                        WriteLine("Not implemented yet");
+                        var gameWithComputer = new GameEngine.Game(new PlayerAI());
+                        gameWithComputer.GameLoopForPlayerVsComputer();
+                        gameWithComputer.DisplayEndGameMessage();
                         break;
                     case 3:
                         WriteLine("Not implemented yet");

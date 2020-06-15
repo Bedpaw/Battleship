@@ -17,8 +17,7 @@ namespace ConsoleApp7.Game
 
         public abstract string Attack();
         protected abstract void SetShips(Ocean playerBoard);
-        public abstract bool[] UpdateMyBoard(string attackedPosition);
-        
+
         public abstract bool IsFleetAlive();
         
         

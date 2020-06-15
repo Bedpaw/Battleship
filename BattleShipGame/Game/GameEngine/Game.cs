@@ -6,21 +6,21 @@ namespace ConsoleApp7.Game.GameEngine
 {
     public class Game
     {
-        ConsolePlayer player1;
-        ConsolePlayer player2;
+
+        private PlayerAI playerCpu;
         private ConsolePlayer AttackingPlayer;
         private ConsolePlayer DefendingPlayer;
         
         public Game(PlayerAI AIplayer)
         {
-            AttackingPlayer = player1 = new ConsolePlayer();
-            // DefendingPlayer = player2 = AIplayer;
+            AttackingPlayer =  new ConsolePlayer();
+            playerCpu = AIplayer;
         }
         public Game()
         {
-            AttackingPlayer = player1 = new ConsolePlayer(); 
+            AttackingPlayer = new ConsolePlayer(); 
             ConsolePlayer.DisplaySwapPlayers("next player");
-            DefendingPlayer = player2 = new ConsolePlayer();
+            DefendingPlayer = new ConsolePlayer();
         }
         public Game(WebPlayer player)
         {
@@ -54,7 +54,7 @@ namespace ConsoleApp7.Game.GameEngine
                 
             }
         }
-        public void GameLoop()
+        public void GameLoopForPlayerVsPlayer()
         {
             bool isHitAndSink;
             do
@@ -63,6 +63,25 @@ namespace ConsoleApp7.Game.GameEngine
                 
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
+                
+                var isAttackSuccess = attackResult[0];
+                isHitAndSink = attackResult[1];
+                
+                DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
+                if (isAttackSuccess == false) SwitchPLayers();
+            } while (IsNotEndGame(isHitAndSink));
+        }
+
+        public void GameLoopForPlayerVsComputer()
+        {
+            bool isHitAndSink;
+            do
+            {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick); //always HumanPlayer hit first
+                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, playerCpu.PlayerBoard);
+                
+                var attackedPosition = AttackingPlayer.Attack();
+                var convAttackPosToArr = utils.Utils.ConvertAttackedPositionToXY(attackedPosition);
+                var attackResult = playerCpu.UpdateMyBoard(convAttackPosToArr);
                 
                 var isAttackSuccess = attackResult[0];
                 isHitAndSink = attackResult[1];

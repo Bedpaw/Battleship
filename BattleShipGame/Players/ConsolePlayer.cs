@@ -8,7 +8,7 @@ using ConsoleApp7.utils;
 
 namespace ConsoleApp7.Players
 {
-    public class ConsolePlayer : Player, IDisplayingAttackResults
+    public class ConsolePlayer : Player, IDisplayingAttackResults, IBoardUpdateHuman
     {   
         private List<string> allPositionsAttackedByPlayer = new List<string>();  
                 
@@ -43,14 +43,8 @@ namespace ConsoleApp7.Players
         {
             ShipsCreation.AddFleetToPlayerBoard(playerBoard);
         }
-
-        public override bool[] UpdateMyBoard(string attackedPosition)
-        {
-            var attackedPositionXY = utils.Utils.ConvertAttackedPositionToXY(attackedPosition);
-            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
-            return attackResult;
-        }
         
+
 
         public override bool IsFleetAlive()
         {
@@ -103,6 +97,13 @@ namespace ConsoleApp7.Players
         {
             Console.Clear();
             Console.WriteLine($"{WinnerNick} has was game! Congratulations!");
+        }
+
+        public bool[] UpdateMyBoard(string attackedPosition)
+        {
+            var attackedPositionXY = utils.Utils.ConvertAttackedPositionToXY(attackedPosition);
+            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
+            return attackResult;
         }
     }
 }

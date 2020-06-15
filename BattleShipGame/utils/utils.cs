@@ -15,5 +15,12 @@ namespace ConsoleApp7.utils
             var y = columnLetters.IndexOf(attackedPosition[0]);
             return new[] {x, y};
         }
+
+        public static int GenerateRandomFromToRange(int minIncl=0, int maxIncl=100)
+        {
+            Random rand = new Random();
+            return rand.Next(minIncl, maxIncl + 1);
+        }
+
     }
 }
