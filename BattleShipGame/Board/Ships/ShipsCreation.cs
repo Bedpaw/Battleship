@@ -40,9 +40,9 @@ namespace ConsoleApp7.Board.Ships
             var arrayShips = new List<Ship>
             {
                 new Destroyer(),
-                /*new Submarine(),
+                new Submarine(),
                 new Battleship(),
-                new Carrier()*/
+                new Carrier()
             };
 
             return arrayShips;
