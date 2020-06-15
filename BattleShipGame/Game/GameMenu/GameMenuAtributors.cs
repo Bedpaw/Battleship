@@ -1,4 +1,6 @@
 ﻿using System;
+using ConsoleApp7.Players;
+using ConsoleApp7.View;
 using static System.Console;
 
 namespace ConsoleApp7.Game.GameMenu
@@ -23,7 +25,7 @@ namespace ConsoleApp7.Game.GameMenu
                 switch (selector)
                 {
                     case 1:
-                        var game = new GameEngine.Game();
+                        var game = new GameEngine.Game(new ConsolePlayer(), new ConsolePlayer(), new ConsoleDisplay());
                         game.GameLoop();
                         game.DisplayEndGameMessage();
                         break;

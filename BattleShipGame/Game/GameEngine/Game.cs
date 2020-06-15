@@ -1,37 +1,25 @@
 ﻿using ConsoleApp7.Board;
-using ConsoleApp7.Interface;
 using ConsoleApp7.Players;
+using ConsoleApp7.View;
 
 namespace ConsoleApp7.Game.GameEngine
 {
     public class Game
     {
-        ConsolePlayer player1;
-        ConsolePlayer player2;
-        private ConsolePlayer AttackingPlayer;
-        private ConsolePlayer DefendingPlayer;
-        
-        public Game(PlayerAI AIplayer)
+        private Player AttackingPlayer { get; set; }
+        private Player DefendingPlayer { get; set; }
+        private IDisplay Display { get; }
+        public Game( Player player1, Player player2, IDisplay display )
         {
-            AttackingPlayer = player1 = new ConsolePlayer();
-            // DefendingPlayer = player2 = AIplayer;
-        }
-        public Game()
-        {
-            AttackingPlayer = player1 = new ConsolePlayer(); 
-            ConsolePlayer.DisplaySwapPlayers("next player");
-            DefendingPlayer = player2 = new ConsolePlayer();
-        }
-        public Game(WebPlayer player)
-        {
-            // :TODO
+            Display = display;
+            AttackingPlayer = player1;
+            DefendingPlayer = player2;
         }
         private bool IsNotEndGame(bool isHitAndSink)
         {   
             if (isHitAndSink) return DefendingPlayer.IsFleetAlive();
             return true;
         }
-
         private void SwitchPLayers()
         {
             var temp = AttackingPlayer;
@@ -41,24 +29,20 @@ namespace ConsoleApp7.Game.GameEngine
 
         private void DisplayAttackResults(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
-            if (AttackingPlayer is IDisplayingAttackResults)
-            {   
-                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
-                AttackingPlayer.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
-            }
-            if (DefendingPlayer is IDisplayingAttackResults)
-            {
-                ConsolePlayer.DisplaySwapPlayers(DefendingPlayer.PlayerNick); // Only for console -> to change in future
-                Ocean.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
-                DefendingPlayer.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
-                
-            }
+            Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+            Display.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
+            
+            Display.DisplaySwapPlayers(DefendingPlayer.PlayerNick);
+            
+            Ocean.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
+            Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
+
         }
         public void GameLoop()
         {
             bool isHitAndSink;
             do
-            {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
+            {   Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
                 Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 
                 var attackedPosition = AttackingPlayer.Attack();
@@ -73,7 +57,7 @@ namespace ConsoleApp7.Game.GameEngine
         }
 
 
-        public void DisplayEndGameMessage() => ConsolePlayer.EndGameMessage(AttackingPlayer.PlayerNick);
+        public void DisplayEndGameMessage() => Display.EndGameMessage(AttackingPlayer.PlayerNick);
 
     }
 }
