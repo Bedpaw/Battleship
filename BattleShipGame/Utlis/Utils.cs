@@ -5,7 +5,7 @@ namespace ConsoleApp7.utils
 {
     public static class Utils
     {
-        public static int[] ConvertAttackedPositionToXY(string attackedPosition)
+        public static int[] ConvertAttackedPositionToXy(string attackedPosition)
         {
             var columnLetters = new List<char>
             {

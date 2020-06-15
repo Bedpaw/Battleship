@@ -33,15 +33,15 @@ namespace ConsoleApp7.Board.Ships
                 
             } while (Validation.IsProperStartPosition(startPosition, playerBoard, ship) == false);
 
-            return Utils.ConvertAttackedPositionToXY(startPosition);
+            return Utils.ConvertAttackedPositionToXy(startPosition);
         }
         public static List<Ship> CreateFleet()
         {
             var arrayShips = new List<Ship>
             {
                 new Destroyer(),
-                new Submarine(),
-                /*new Battleship(),
+                /*new Submarine(),
+                new Battleship(),
                 new Carrier()*/
             };
 

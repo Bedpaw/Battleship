@@ -9,8 +9,7 @@ using ConsoleApp7.Interface;
 namespace ConsoleApp7.Players
 {
 
-
-    public class PlayerAI : Player, IBoardUpdateComputer
+    public class PlayerAI : Player
     {
         protected List<int> UniqueShootsArray = new List<int>();
         protected List<int> ShipsFirstFieldCords = new List<int>();
@@ -27,7 +26,6 @@ namespace ConsoleApp7.Players
             Medium = 2,
             Hard = 3
         }
-
         public enum ShipOrientation
         {
             Horizontal,
@@ -58,8 +56,6 @@ namespace ConsoleApp7.Players
             return literalShootPosition;
 
         }
-        
-        
         private int GenerateAndMakeUniqueRandomNumber(List<int> listOfItems)
         {
             int randomNumber;
@@ -101,6 +97,11 @@ namespace ConsoleApp7.Players
             
         }
 
+        public override bool[] UpdateMyBoard(string attackPosition)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool IsFleetAlive()
         {
             throw new System.NotImplementedException();
@@ -136,11 +137,6 @@ namespace ConsoleApp7.Players
             }
 
             return Difficulty.Easy;
-        }
-        public bool[] UpdateMyBoard(int[] attackedPosition)
-        {
-            var attackResult = PlayerBoard.GetShot(attackedPosition);
-            return attackResult;
         }
 
 

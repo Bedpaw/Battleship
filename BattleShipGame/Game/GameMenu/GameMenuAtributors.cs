@@ -1,5 +1,6 @@
 ﻿using System;
 using ConsoleApp7.Players;
+using ConsoleApp7.View;
 using static System.Console;
 
 namespace ConsoleApp7.Game.GameMenu
@@ -24,13 +25,14 @@ namespace ConsoleApp7.Game.GameMenu
                 switch (selector)
                 {
                     case 1:
-                        var game = new GameEngine.Game();
+                        var game = new GameEngine.Game(new ConsolePlayer(), new ConsolePlayer(), new ConsoleDisplay());
                         game.GameLoopForPlayerVsPlayer();
+
                         game.DisplayEndGameMessage();
                         break;
                     case 2:
-                        var gameWithComputer = new GameEngine.Game(new PlayerAI());
-                        gameWithComputer.GameLoopForPlayerVsComputer();
+                        var gameWithComputer = new GameEngine.Game(new ConsolePlayer(), new PlayerAI(), new ConsoleDisplay());
+                        gameWithComputer.GameLoopForPlayerVsPlayer();
                         gameWithComputer.DisplayEndGameMessage();
                         break;
                     case 3:

@@ -1,33 +1,26 @@
-﻿using System.Collections.Generic;
-using ConsoleApp7.Board;
-using ConsoleApp7.Interface;
+﻿using ConsoleApp7.Board;
 
-namespace ConsoleApp7.Game
+namespace ConsoleApp7.Players
 {
-    public class WebPlayer : Player, IDisplayingAttackResults
+    public class WebPlayer : Player
     {
         public override string Attack()
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void SetShips(Ocean PlayerBoard)
+        protected override void SetShips(Ocean playerBoard)
         {
             throw new System.NotImplementedException();
         }
-        
+
+        public override bool[] UpdateMyBoard(string attackPosition)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public override bool IsFleetAlive()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DisplayDefendingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             throw new System.NotImplementedException();
         }

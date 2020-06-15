@@ -54,7 +54,7 @@ namespace ConsoleApp7.utils
 
         private static bool IsSpaceForShip(string startPosition, Ocean ocean, Ship ship)
         {
-            var posXy = Utils.ConvertAttackedPositionToXY(startPosition);
+            var posXy = Utils.ConvertAttackedPositionToXy(startPosition);
             
             for (var i = 0; i < ship.Size; i++)
             {
