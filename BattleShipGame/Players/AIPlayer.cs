@@ -68,12 +68,7 @@ namespace ConsoleApp7.Players
             return randomNumber;
         }
 
-        public int GenerateOrientation()
-        {
-            var randomNumber = Utils.GenerateRandomFromToRange(1, 2);
-            // ShipOrientation randomOrientation = (ShipOrientation) randomNumber;
-            return randomNumber;
-        }
+        public int GenerateOrientation() => Utils.GenerateRandomFromToRange(1, 2);
 
         private int [] ShipFirstFieldPosition(Ship shipToCheck)
         {

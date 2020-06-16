@@ -14,7 +14,6 @@ namespace ConsoleApp7.Game.GameEngine
             Display = display;
             AttackingPlayer = player1;
             DefendingPlayer = player2;
-
         }
         private bool IsNotEndGame(bool isHitAndSink)
         {   
@@ -39,17 +38,13 @@ namespace ConsoleApp7.Game.GameEngine
             Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
 
         }
-        public void GameLoopForPlayerVsPlayer()
+        public void GameLoopForPlayerVsPlayer() // Name to change GameLoop
         {
             bool isHitAndSink;
             do
             {   
                 Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
-                if (AttackingPlayer.GetType() == typeof(ConsolePlayer))
-                {
-                    Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
-                }
-                
+                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
