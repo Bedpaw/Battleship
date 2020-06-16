@@ -19,7 +19,7 @@ namespace ConsoleApp7.Players
         private int[] lastAiAttack = new int [2];
         private int[] _lastAiAttackSuccess = new int[2];
         public static bool LastAttackSuccess = false;
-        private AttackSuccessDirection _direction = AttackSuccessDirection.North;
+
 
         public PlayerAI()
         {
@@ -28,14 +28,7 @@ namespace ConsoleApp7.Players
             PlayerNick = $"Computer {Difficulty.Easy.ToString()}";
             SetShips(PlayerBoard);
         }
-
-        private enum AttackSuccessDirection
-        {
-            North,
-            East,
-            South,
-            West
-        }
+        
         public enum Difficulty
         {
             Easy = 1,
@@ -61,6 +54,7 @@ namespace ConsoleApp7.Players
             const int firstNumericRepresentationOfChar = 65;
             return ((char)(someNumber + firstNumericRepresentationOfChar)).ToString();
         }
+
 
         protected string LevelAttackSelection()
         {
@@ -96,7 +90,7 @@ namespace ConsoleApp7.Players
                 _lastAiAttackSuccess = lastAiAttack;
                 
                 // If human ship is attack but computer choose wrong direction to shoot
-
+                
                 
                 // validation if direction are possible
                 // direction of shoot should be wise chosen
@@ -144,7 +138,6 @@ namespace ConsoleApp7.Players
             int[] posXY = new int[2];
             do
             {
-                // var shipFirstCords = GenerateAndMakeUniqueRandomNumber(ShipsFirstFieldCords);
                 posXY[0] = Utils.GenerateRandomFromToRange();
                 posXY[1] = Utils.GenerateRandomFromToRange();
                 Console.WriteLine($"{posXY[0]}, {posXY[1]}");
@@ -171,16 +164,22 @@ namespace ConsoleApp7.Players
             
         }
 
-        public override bool[] UpdateMyBoard(string attackPosition)
+        public override bool[] UpdateMyBoard(string attackPosition) // here is the magic of attacking
         {
             var attackedPositionXY = Utils.ConvertAttackedPositionToXy(attackPosition);
+            
             var attackResult = PlayerBoard.GetShot(attackedPositionXY);
             return attackResult;
         }
 
         public override bool IsFleetAlive()
         {
-            throw new System.NotImplementedException();
+            return PlayerBoard.Fleet.Exists(ship => ship.IsSunk == false);
+        }
+
+        public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
+        {
+            throw new NotImplementedException();
         }
 
         private void PrintDifficultyOptionsToSelect()

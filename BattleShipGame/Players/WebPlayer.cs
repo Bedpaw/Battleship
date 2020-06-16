@@ -24,6 +24,11 @@ namespace ConsoleApp7.Players
         {
             throw new System.NotImplementedException();
         }
+
+        public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
  

@@ -12,7 +12,9 @@ namespace ConsoleApp7.Players
         public abstract bool [] UpdateMyBoard(string attackPosition);
 
         public abstract bool IsFleetAlive();
-        
-        
+
+
+        public abstract void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink);
+
     }
 }

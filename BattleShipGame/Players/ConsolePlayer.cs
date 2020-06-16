@@ -55,5 +55,10 @@ namespace ConsoleApp7.Players
         {
             return PlayerBoard.Fleet.Exists(ship => ship.IsSunk == false);
         }
+
+        public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
