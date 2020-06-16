@@ -26,13 +26,13 @@ namespace ConsoleApp7.Game.GameMenu
                 {
                     case 1:
                         var game = new GameEngine.Game(new ConsolePlayer(), new ConsolePlayer(), new ConsoleDisplay());
-                        game.GameLoopForPlayerVsPlayer();
+                        game.GameLoop();
 
                         game.DisplayEndGameMessage();
                         break;
                     case 2:
                         var gameWithComputer = new GameEngine.Game(new ConsolePlayer(), new PlayerAI(), new ConsoleDisplay());
-                        gameWithComputer.GameLoopForPlayerVsPlayer();
+                        gameWithComputer.GameLoop();
                         gameWithComputer.DisplayEndGameMessage();
                         break;
                     case 3:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Board;
@@ -14,12 +15,26 @@ namespace ConsoleApp7.Players
     {
         protected List<int> UniqueShootsArray = new List<int>();
         protected List<int> ShipsFirstFieldCords = new List<int>();
+        
+        private int[] lastAiAttack = new int [2];
+        private int[] _lastAiAttackSuccess = new int[2];
+        public static bool LastAttackSuccess = false;
+        private AttackSuccessDirection _direction = AttackSuccessDirection.North;
+
         public PlayerAI()
         {
             PlayerBoard = new Ocean(10, 10);
             DifficultyLevel = SetDifficultyLevel();
             PlayerNick = $"Computer {Difficulty.Easy.ToString()}";
             SetShips(PlayerBoard);
+        }
+
+        private enum AttackSuccessDirection
+        {
+            North,
+            East,
+            South,
+            West
         }
         public enum Difficulty
         {
@@ -37,7 +52,7 @@ namespace ConsoleApp7.Players
 
         private int[] generateRandomNumericRepresentationOfShootPosition(int randomNum)
         {
-           int [] arrOfnum = {(int) Math.Floor((decimal) (randomNum / 10)), randomNum % 10};
+           int [] arrOfnum = {Utils.GenerateRandomFromToRange(), Utils.GenerateRandomFromToRange()};
            return arrOfnum;
         }
 
@@ -46,15 +61,69 @@ namespace ConsoleApp7.Players
             const int firstNumericRepresentationOfChar = 65;
             return ((char)(someNumber + firstNumericRepresentationOfChar)).ToString();
         }
-        
-        
-        public override string Attack()
+
+        protected string LevelAttackSelection()
         {
+            if (DifficultyLevel == Difficulty.Easy)
+            {
+                return EasyAttack();
+            }
+            else if (DifficultyLevel == Difficulty.Medium)
+            {
+                return MediumAttack();
+            }
+            return HardAttack();
+
+        }
+
+        private string EasyAttack()
+        {
+            // Easy attack is totally random attack even though CPU hit into ship
+            // it will still generate random positions
             var randomNum = GenerateAndMakeUniqueRandomNumber(UniqueShootsArray);
             int[] numericArrOfPositions = generateRandomNumericRepresentationOfShootPosition(randomNum);
             var literalShootPosition = NumberConvertionToLetter(numericArrOfPositions[0]);
             literalShootPosition += numericArrOfPositions[1].ToString();
             return literalShootPosition;
+        }
+        private string MediumAttack()
+        {
+            //Medium attack randomly search for ship but when it hit into ship the ship will be
+            //destroyed in less possible moves
+            if (LastAttackSuccess)
+            {
+                // remember last good position and try another direction
+                _lastAiAttackSuccess = lastAiAttack;
+                
+                // If human ship is attack but computer choose wrong direction to shoot
+
+                
+                // validation if direction are possible
+                // direction of shoot should be wise chosen
+                // remember good direction if second shoot is successful
+
+
+                // If ship is sink LastAttackSuccess become again false
+                // 
+            }
+            else
+            {
+                return EasyAttack();
+            }
+
+            return " ";
+        }
+        private string HardAttack()
+        {
+            //Hard attack follow algorithm and kill ship in less possible moves like medium
+
+            return " ";
+        }
+        
+        
+        public override string Attack()
+        {
+            return LevelAttackSelection();
 
         }
         private int GenerateAndMakeUniqueRandomNumber(List<int> listOfItems)
@@ -142,7 +211,6 @@ namespace ConsoleApp7.Players
                 case (int)Difficulty.Hard:
                     return Difficulty.Hard;
             }
-
             return Difficulty.Easy;
         }
 

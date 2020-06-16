@@ -38,7 +38,7 @@ namespace ConsoleApp7.Game.GameEngine
             Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
 
         }
-        public void GameLoopForPlayerVsPlayer() // Name to change GameLoop
+        public void GameLoop()
         {
             bool isHitAndSink;
             do
@@ -56,26 +56,7 @@ namespace ConsoleApp7.Game.GameEngine
                 if (isAttackSuccess == false) SwitchPLayers();
             } while (IsNotEndGame(isHitAndSink));
         }
-
-        // public void GameLoopForPlayerVsComputer()
-        // {
-            // bool isHitAndSink = false;
-            // do
-            // {   ConsolePlayer.DisplaySwapPlayers(AttackingPlayer.PlayerNick); //always HumanPlayer hit first
-                // Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, playerCpu.PlayerBoard);
-                
-                // var attackedPosition = AttackingPlayer.Attack();
-                // var convAttackPosToArr = utils.Utils.ConvertAttackedPositionToXY(attackedPosition);
-                // var attackResult = playerCpu.UpdateMyBoard(convAttackPosToArr);
-                
-                // var isAttackSuccess = attackResult[0];
-                // isHitAndSink = attackResult[1];
-                
-                // DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
-                // if (isAttackSuccess == false) SwitchPLayers();
-            // } while (IsNotEndGame(isHitAndSink));
-        // }
-
+        
 
         public void DisplayEndGameMessage() => Display.EndGameMessage(AttackingPlayer.PlayerNick);
 
