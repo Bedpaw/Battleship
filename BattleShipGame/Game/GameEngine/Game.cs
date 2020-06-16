@@ -43,8 +43,13 @@ namespace ConsoleApp7.Game.GameEngine
         {
             bool isHitAndSink;
             do
-            {   Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
-                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+            {   
+                Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
+                if (AttackingPlayer.GetType() == typeof(ConsolePlayer))
+                {
+                    Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+                }
+                
                 
                 var attackedPosition = AttackingPlayer.Attack();
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);

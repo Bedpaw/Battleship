@@ -37,7 +37,6 @@ namespace ConsoleApp7.utils
             if (allPositionsAttackedByPlayer.Contains(attackedPosition)) return false;
             
             return true;
-
         }
 
         public static bool IsProperStartPosition(string startPosition, Ocean myBoard, Ship ship)
@@ -47,14 +46,12 @@ namespace ConsoleApp7.utils
             if (charsToValidate.Length != 2 && charsToValidate.Length != 3) return false;
             if (!IsLetterFromAToJ(charsToValidate[0])) return false;
             if (!IsNumberFrom1To10(charsToValidate)) return false;
-            
-            return IsSpaceForShip(startPosition, myBoard, ship);
+            int [] posXY = Utils.ConvertAttackedPositionToXy(startPosition);
+            return IsSpaceForShip(posXY, myBoard, ship);
         }
 
-        private static bool IsSpaceForShip(string startPosition, Ocean ocean, Ship ship)
+        public static bool IsSpaceForShip(int [] posXy, Ocean ocean, Ship ship)
         {
-            var posXy = Utils.ConvertAttackedPositionToXy(startPosition);
-            
             for (var i = 0; i < ship.Size; i++)
             {
                 var shipFieldToCheck = ship.Orientation == 1 // 1 = horizontal else vertical

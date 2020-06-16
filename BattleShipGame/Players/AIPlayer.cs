@@ -62,7 +62,7 @@ namespace ConsoleApp7.Players
             int randomNumber;
             do
             {
-                randomNumber = utils.Utils.GenerateRandomFromToRange();
+                randomNumber = Utils.GenerateRandomFromToRange();
             } while (UniqueShootsArray.Contains(randomNumber));
             listOfItems.Add(randomNumber);
             return randomNumber;
@@ -75,13 +75,22 @@ namespace ConsoleApp7.Players
             return randomNumber;
         }
 
-        private int [] ShipFirstFieldPosition()
+        private int [] ShipFirstFieldPosition(Ship shipToCheck)
         {
-            var shipFirstCords = GenerateAndMakeUniqueRandomNumber(ShipsFirstFieldCords);
-            // Validation TODO
-            int [] posXbyY = {(int) Math.Floor((decimal) (shipFirstCords / 10)), shipFirstCords % 10};
+            int[] posXY = new int[2];
+            do
+            {
+                // var shipFirstCords = GenerateAndMakeUniqueRandomNumber(ShipsFirstFieldCords);
+                posXY[0] = Utils.GenerateRandomFromToRange();
+                posXY[1] = Utils.GenerateRandomFromToRange();
+                Console.WriteLine($"{posXY[0]}, {posXY[1]}");
+                Console.WriteLine($"{shipToCheck.Orientation}");
+            } while (!Validation.IsSpaceForShip(posXY, PlayerBoard, shipToCheck));
+
+            Console.WriteLine($"{posXY[0]}, {posXY[1]}");
+            Console.ReadKey();
             
-            return posXbyY;
+            return posXY;
         }
         
         protected override void SetShips(Ocean playerBoard)
@@ -92,7 +101,7 @@ namespace ConsoleApp7.Players
             foreach (var shipAi in fleetForAi)
             {
                 shipAi.Orientation = GenerateOrientation();
-                shipAi.StartPositions = ShipFirstFieldPosition();
+                shipAi.StartPositions = ShipFirstFieldPosition(shipAi); 
                 playerBoard.AddNewShip(shipAi);
             }
             
