@@ -21,7 +21,6 @@ namespace ConsoleApp7.utils
             if (charsToValidate.Length == 3)
             {
                 if (charsToValidate[1] == '1' && charsToValidate[2] == '0') return true;
-
             }
             // Check 1-9
             else if (char.IsDigit(charsToValidate[1]) && charsToValidate[1] != '0') return true;
@@ -66,8 +65,8 @@ namespace ConsoleApp7.utils
             }
             return true;
         }
-        private static bool IsFieldInBoardWidth(Ocean ocean, int posX) => 0 < posX && posX < ocean.initX;
-        private static bool IsFieldInBoardHeight(Ocean ocean, int posY) => 0 < posY && posY < ocean.initY;
+        private static bool IsFieldInBoardWidth(Ocean ocean, int posX)  => 0 <= posX && posX < ocean.initX;
+        private static bool IsFieldInBoardHeight(Ocean ocean, int posY)  => 0 <= posY && posY < ocean.initY;
         private static bool IsFieldInBoard(Ocean ocean, int[] posXy) => IsFieldInBoardWidth(ocean, posXy[0]) && IsFieldInBoardHeight(ocean, posXy[1]);
         private static bool IsShipInOrAroundField(Ocean ocean, int [] posXy)
         {
@@ -77,13 +76,13 @@ namespace ConsoleApp7.utils
             var down = new [] {x, y + 1};
             var left = new [] {x - 1, y};
             var right = new [] {x + 1, y};
-            
-            if (IsFieldInBoard(ocean, posXy)) if (ocean.board[x][y].IsShipOn) return true;
-            if (IsFieldInBoard(ocean, up)) if (ocean.board[x][y - 1].IsShipOn) return true;
-            if (IsFieldInBoard(ocean, down)) if (ocean.board[x][y + 1].IsShipOn) return true;
-            if (IsFieldInBoard(ocean, right)) if (ocean.board[x + 1][y].IsShipOn) return true;
-            if (IsFieldInBoard(ocean, left)) if (ocean.board[x - 1][y].IsShipOn) return true;
 
+            if (!IsFieldInBoard(ocean, posXy) || ocean.board[x][y].IsShipOn) return true;
+            if (IsFieldInBoard(ocean, up) && ocean.board[x][y - 1].IsShipOn) return true;
+            if (IsFieldInBoard(ocean, down) && ocean.board[x][y + 1].IsShipOn) return true;
+            if (IsFieldInBoard(ocean, right) && ocean.board[x + 1][y].IsShipOn) return true;
+            if (IsFieldInBoard(ocean, left) && ocean.board[x - 1][y].IsShipOn) return true;
+            
             return false;
         }
 

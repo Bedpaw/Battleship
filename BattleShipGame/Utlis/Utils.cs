@@ -11,8 +11,8 @@ namespace ConsoleApp7.utils
             {
                 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
             };
-            var x = attackedPosition.Length == 3 ? 9 : int.Parse(attackedPosition[1].ToString()) - 1;
             var y = columnLetters.IndexOf(attackedPosition[0]);
+            var x = attackedPosition.Length == 3 ? 9 : int.Parse(attackedPosition[1].ToString()) - 1;
             return new[] {x, y};
         }
 
