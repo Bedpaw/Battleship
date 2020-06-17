@@ -13,12 +13,13 @@ namespace ConsoleApp7.Players
 
     public class PlayerAI : Player
     {
-        protected List<int> UniqueShootsArray = new List<int>();
-        protected List<int> ShipsFirstFieldCords = new List<int>();
+        protected List<int[]> UniqueShootsArray = new List<int[]>();
+        protected bool isShipHorizontal;
+        protected bool doYouKnowShipOrientation;
         
         private int[] lastAiAttack = new int [2];
         private int[] _lastAiAttackSuccess = new int[2];
-        public static bool LastAttackSuccess = false;
+        public static bool LastAttackSuccess;
 
 
         public PlayerAI()
@@ -35,27 +36,8 @@ namespace ConsoleApp7.Players
             Medium = 2,
             Hard = 3
         }
-        public enum ShipOrientation
-        {
-            Horizontal,
-            Vertical
-        }
-
         private Difficulty DifficultyLevel { get;}
-
-        private int[] generateRandomNumericRepresentationOfShootPosition(int randomNum)
-        {
-           int [] arrOfnum = {Utils.GenerateRandomFromToRange(), Utils.GenerateRandomFromToRange()};
-           return arrOfnum;
-        }
-
-        private string NumberConvertionToLetter(int someNumber)
-        {
-            const int firstNumericRepresentationOfChar = 65;
-            return ((char)(someNumber + firstNumericRepresentationOfChar)).ToString();
-        }
-
-
+        
         protected string LevelAttackSelection()
         {
             if (DifficultyLevel == Difficulty.Easy)
@@ -74,11 +56,8 @@ namespace ConsoleApp7.Players
         {
             // Easy attack is totally random attack even though CPU hit into ship
             // it will still generate random positions
-            var randomNum = GenerateAndMakeUniqueRandomNumber(UniqueShootsArray);
-            int[] numericArrOfPositions = generateRandomNumericRepresentationOfShootPosition(randomNum);
-            var literalShootPosition = NumberConvertionToLetter(numericArrOfPositions[0]);
-            literalShootPosition += numericArrOfPositions[1].ToString();
-            return literalShootPosition;
+            var randomPositionsAttack = GenerateAndMakeUniqueRandomArray(UniqueShootsArray);
+            return Utils.ConvertXYtoStringRepresentationOfCords(randomPositionsAttack);
         }
         private string MediumAttack()
         {
@@ -86,49 +65,78 @@ namespace ConsoleApp7.Players
             //destroyed in less possible moves
             if (LastAttackSuccess)
             {
-                // remember last good position and try another direction
-                _lastAiAttackSuccess = lastAiAttack;
-                
-                // If human ship is attack but computer choose wrong direction to shoot
-                
-                
-                // validation if direction are possible
-                // direction of shoot should be wise chosen
-                // remember good direction if second shoot is successful
-
-
-                // If ship is sink LastAttackSuccess become again false
-                // 
+                if (doYouKnowShipOrientation)
+                {
+                    if (isShipHorizontal)
+                    {
+                        if (Validation.IsFieldInBoardWidth(PlayerBoard, _lastAiAttackSuccess[0] + 1)
+                            && UniqueShootsArray.Contains(_lastAiAttackSuccess))
+                        {
+                            return Utils.ConvertXYtoStringRepresentationOfCords(_lastAiAttackSuccess[0] + 1,
+                                _lastAiAttackSuccess[1]);
+                        }
+                        else
+                        {
+                            return Utils.ConvertXYtoStringRepresentationOfCords(_lastAiAttackSuccess[0] - 1,
+                                _lastAiAttackSuccess[1]);
+                        }
+                    }
+                    else
+                    {
+                        if (Validation.IsFieldInBoardHeight(PlayerBoard, _lastAiAttackSuccess[1] + 1)
+                            && UniqueShootsArray.Contains(_lastAiAttackSuccess))
+                        {
+                            return Utils.ConvertXYtoStringRepresentationOfCords(_lastAiAttackSuccess[0],
+                                _lastAiAttackSuccess[1]+1);
+                        }
+                        else
+                        {
+                            return Utils.ConvertXYtoStringRepresentationOfCords(_lastAiAttackSuccess[0],
+                                _lastAiAttackSuccess[1]-1);
+                        }
+                    }
+                }
+                else
+                {   
+                    var x = _lastAiAttackSuccess[0];
+                    var y = _lastAiAttackSuccess[1];
+                    var up = new [] {x, y - 1};
+                    var down = new [] {x, y + 1};
+                    var left = new [] {x - 1, y};
+                    var right = new [] {x + 1, y};
+                    if (Validation.IsFieldInBoard(PlayerBoard, up) && UniqueShootsArray.Contains(up)) 
+                        return Utils.ConvertXYtoStringRepresentationOfCords(up);
+                    if (Validation.IsFieldInBoard(PlayerBoard, down) && UniqueShootsArray.Contains(down))
+                        return Utils.ConvertXYtoStringRepresentationOfCords(down);;
+                    if (Validation.IsFieldInBoard(PlayerBoard, right) && UniqueShootsArray.Contains(left))
+                        return Utils.ConvertXYtoStringRepresentationOfCords(left);
+                    if (Validation.IsFieldInBoard(PlayerBoard, left) && UniqueShootsArray.Contains(right))
+                        return Utils.ConvertXYtoStringRepresentationOfCords(right);
+                }
             }
-            else
-            {
-                return EasyAttack();
-            }
-
-            return " ";
+            return EasyAttack();
         }
         private string HardAttack()
         {
             //Hard attack follow algorithm and kill ship in less possible moves like medium
-
             return " ";
         }
-        
-        
+
         public override string Attack()
         {
             return LevelAttackSelection();
 
         }
-        private int GenerateAndMakeUniqueRandomNumber(List<int> listOfItems)
+        private int[] GenerateAndMakeUniqueRandomArray(List<int[]> listOfItems)
         {
-            int randomNumber;
+            int[] arrOfrandNums = new int [2];
             do
             {
-                randomNumber = Utils.GenerateRandomFromToRange();
-            } while (UniqueShootsArray.Contains(randomNumber));
-            listOfItems.Add(randomNumber);
-            return randomNumber;
+                arrOfrandNums[0] = Utils.GenerateRandomFromToRange();
+                arrOfrandNums[1] = Utils.GenerateRandomFromToRange();
+            } while (listOfItems.Contains(arrOfrandNums));
+            listOfItems.Add(arrOfrandNums);
+            return arrOfrandNums;
         }
 
         public int GenerateOrientation() => Utils.GenerateRandomFromToRange(1, 2);
@@ -143,11 +151,17 @@ namespace ConsoleApp7.Players
                 Console.WriteLine($"{posXY[0]}, {posXY[1]}");
                 Console.WriteLine($"{shipToCheck.Orientation}");
             } while (!Validation.IsSpaceForShip(posXY, PlayerBoard, shipToCheck));
-
-            Console.WriteLine($"{posXY[0]}, {posXY[1]}");
-            Console.ReadKey();
             
             return posXY;
+        }
+
+        protected bool readOrientatationFromLastShoots(int [] attackedPosition, int [] lastAiAttack)
+        {
+            if (lastAiAttack[0] + 1 == attackedPosition[0] || lastAiAttack[0] - 1 == attackedPosition[0])
+                return true;
+            if (lastAiAttack[1] + 1 == attackedPosition[1] || lastAiAttack[1] - 1 == attackedPosition[1])
+                return false;
+            return false;
         }
         
         protected override void SetShips(Ocean playerBoard)
@@ -161,14 +175,12 @@ namespace ConsoleApp7.Players
                 shipAi.StartPositions = ShipFirstFieldPosition(shipAi); 
                 playerBoard.AddNewShip(shipAi);
             }
-            
         }
-
         public override bool[] UpdateMyBoard(string attackPosition) // here is the magic of attacking
         {
-            var attackedPositionXY = Utils.ConvertAttackedPositionToXy(attackPosition);
+            var attackedPositionXy = Utils.ConvertAttackedPositionToXy(attackPosition);
             
-            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
+            var attackResult = PlayerBoard.GetShot(attackedPositionXy);
             return attackResult;
         }
 
@@ -179,7 +191,31 @@ namespace ConsoleApp7.Players
 
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
-            throw new NotImplementedException();
+            if (isAttackSuccess && !isHitAndSink)
+            {
+                if (!LastAttackSuccess)
+                {
+                    lastAiAttack = Utils.ConvertAttackedPositionToXy(attackedPosition);
+                    LastAttackSuccess = true;
+                }
+                else if(!doYouKnowShipOrientation)
+                {
+                    var convAttackedPosition = Utils.ConvertAttackedPositionToXy(attackedPosition);
+                    isShipHorizontal = readOrientatationFromLastShoots(convAttackedPosition, lastAiAttack);
+                    doYouKnowShipOrientation = true;
+                }
+                else
+                {
+                    //TODO
+                }
+                
+            }
+
+            if (isHitAndSink)
+            {
+                lastAiAttack = new int[]{};
+                LastAttackSuccess = false;
+            }
         }
 
         private void PrintDifficultyOptionsToSelect()

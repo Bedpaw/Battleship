@@ -21,6 +21,16 @@ namespace ConsoleApp7.utils
             Random rand = new Random();
             return rand.Next(minIncl, maxIncl + 1);
         }
-
+        
+        public static string NumberConvertionToLetter(int someNumber)
+        {
+            const int firstNumericRepresentationOfChar = 65;
+            return ((char)(someNumber + firstNumericRepresentationOfChar)).ToString();
+        }
+        public static string ConvertXYtoStringRepresentationOfCords(params int [] posXy)
+        {
+            var literalShootPosition = NumberConvertionToLetter(posXy[0]);
+            return literalShootPosition + posXy;
+        }
     }
 }

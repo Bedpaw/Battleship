@@ -46,8 +46,8 @@ namespace ConsoleApp7.Players
 
         public override bool[] UpdateMyBoard(string attackedPosition)
         {
-            var attackedPositionXY = Utils.ConvertAttackedPositionToXy(attackedPosition);
-            var attackResult = PlayerBoard.GetShot(attackedPositionXY);
+            var attackedPositionXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
+            var attackResult = PlayerBoard.GetShot(attackedPositionXy);
             return attackResult;
         }
 
