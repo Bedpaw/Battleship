@@ -39,9 +39,9 @@ namespace ConsoleApp7.Board.Ships
         {
             var arrayShips = new List<Ship>
             {
-                new Destroyer(),
+                /*/*new Destroyer(),#1#
                 new Submarine(),
-                new Battleship(),
+                new Battleship(),*/
                 new Carrier()
             };
 

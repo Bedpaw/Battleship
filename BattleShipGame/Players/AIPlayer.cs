@@ -4,28 +4,20 @@ using System.Linq;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Board;
 using ConsoleApp7.utils;
+using ConsoleApp7.Utlis;
 
 namespace ConsoleApp7.Players
 {
 
     public class PlayerAI : Player
     {
+        private int _round = 0; //ONLY FOR TESTS
         private List<int[]> UniqueShootsArray = new List<int[]>();
+        private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
         private bool IsShipHorizontal { get; set; }
         private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
-        
-        private List<int []> PositionsOfHitShip { get; set; }
         private bool IsShipHitNotSink => PositionsOfHitShip.Count != 0;
-
-
-        public PlayerAI()
-        {
-            PlayerBoard = new Ocean(10, 10);
-            DifficultyLevel = SetDifficultyLevel();
-            PlayerNick = $"Computer {Difficulty.Easy.ToString()}";
-            SetShips(PlayerBoard);
-        }
-
+        
         private enum Difficulty
         {
             Easy = 1,
@@ -34,6 +26,13 @@ namespace ConsoleApp7.Players
         }
         private Difficulty DifficultyLevel { get;}
 
+        public PlayerAI()
+        {
+            PlayerBoard = new Ocean(10, 10);
+            DifficultyLevel = SetDifficultyLevel();
+            PlayerNick = $"Computer {DifficultyLevel.ToString()}";
+            SetShips(PlayerBoard);
+        }
         public override string Attack()
         {
             switch (DifficultyLevel)
@@ -51,7 +50,7 @@ namespace ConsoleApp7.Players
         {
             // Easy attack is totally random attack even though CPU hit into ship
             // it will still generate random positions
-            var randomPositionsAttack = GenerateAndMakeUniqueRandomArray(UniqueShootsArray);
+            var randomPositionsAttack = Utils.GenerateAndMakeUniqueRandomArray(UniqueShootsArray);
             return Utils.ConvertXYtoStringRepresentationOfCords(randomPositionsAttack);
         }
 
@@ -59,85 +58,48 @@ namespace ConsoleApp7.Players
         {
             //Medium attack randomly search for ship but when it hit into ship the ship will be
             //destroyed in less possible moves
-
+            if (_round == 0) return "A1"; // ONLY FOR TESTS
+            _round++;
             if (!IsShipHitNotSink) return EasyAttack();
-            
-            int[] positionToAttack = new int [2];
-            // Doesn't work yet, have to check 'contains'
-            foreach (var shitPosition in PositionsOfHitShip)
+
+            foreach (var shipPosition in PositionsOfHitShip)
             {
-                var x = shitPosition[0];
-                var y = shitPosition[1];
+                var shipPos = new OceanFieldValidator(shipPosition, PlayerBoard, UniqueShootsArray);
 
-                var up = new[] {x, y - 1};
-                var down = new[] {x, y + 1};
-                var left = new[] {x - 1, y};
-                var right = new[] {x + 1, y};
+                if (!ShipOrientationIsKnown) return shipPos.GetAsString(shipPos.GetValidFieldAround());
 
-                var checkRight = Validation.IsFieldInBoardWidth(PlayerBoard, x + 1);
-                var checkUp = Validation.IsFieldInBoardHeight(PlayerBoard, y - 1);
-                var checkDown = Validation.IsFieldInBoardHeight(PlayerBoard, y + 1);
-
-                if (ShipOrientationIsKnown)
-                    positionToAttack = IsShipHorizontal
-                        ? checkRight
-                            ? right
-                            : left
-                        : checkDown
-                            ? down
-                            : up;
-                else
-                {
-                    if (checkUp) positionToAttack = up;
-                    else if (checkDown) positionToAttack = down;
-                    else if (checkRight) positionToAttack = right;
-                    else positionToAttack = left;
-                }
+                if (IsShipHorizontal) if (shipPos.IsValidHorizontal) return shipPos.GetAsString(shipPos.GetValidHorizontal());
+                if (!IsShipHorizontal) if (shipPos.IsValidVertical) return shipPos.GetAsString(shipPos.GetValidVertical());
             }
-            return Utils.ConvertXYtoStringRepresentationOfCords(positionToAttack);
-
+            return null;
         }
-
         private static string HardAttack()
         {
             //Hard attack follow algorithm and kill ship in less possible moves like medium
             return " ";
         }
-
-        private static int[] GenerateAndMakeUniqueRandomArray(List<int[]> listOfItems)
-        {
-            var arrOfRandNums = new int [2];
-            do
-            {
-                arrOfRandNums[0] = Utils.GenerateRandomFromToRange();
-                arrOfRandNums[1] = Utils.GenerateRandomFromToRange();
-            } while (listOfItems.Contains(arrOfRandNums));
-            listOfItems.Add(arrOfRandNums);
-            return arrOfRandNums;
-        }
-
+        
         private static int GenerateOrientation() => Utils.GenerateRandomFromToRange(1, 2);
 
         private int [] ShipFirstFieldPosition(Ship shipToCheck)
         {
-            var posXY = new int[2];
+            var posXy = new int[2];
             do
             {
-                posXY[0] = Utils.GenerateRandomFromToRange();
-                posXY[1] = Utils.GenerateRandomFromToRange();
-            } while (!Validation.IsSpaceForShip(posXY, PlayerBoard, shipToCheck));
+                posXy[0] = Utils.GenerateRandomFromToRange();
+                posXy[1] = Utils.GenerateRandomFromToRange();
+            } while (!Validation.IsSpaceForShip(posXy, PlayerBoard, shipToCheck));
             
-            return posXY;
+            return posXy;
         }
 
-        private bool ReadOrientatationFromLastShoots(int [] attackedPosition)
+        private bool ReadOrientationFromLastShoots(int [] attackedPosition)
         {
             return PositionsOfHitShip[0][0] + 1 == attackedPosition[0] || PositionsOfHitShip[0][0] - 1 == attackedPosition[0];
         }
         
         protected override void SetShips(Ocean playerBoard)
         {
-            // AI fleet initialisation
             var fleetForAi = ShipsCreation.CreateFleet();
 
             foreach (var shipAi in fleetForAi)
@@ -158,15 +120,17 @@ namespace ConsoleApp7.Players
 
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
-            if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
+            var attackedPositionAsXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
+            UniqueShootsArray.Add(attackedPositionAsXy);
             
+            if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
+                        
             else if (isAttackSuccess)
             {    
-                PositionsOfHitShip.Add(Utils.ConvertAttackedPositionToXy(attackedPosition));
+                PositionsOfHitShip.Add(attackedPositionAsXy);
                 
                 if (ShipOrientationIsKnown) return;
-                var convAttackedPosition = Utils.ConvertAttackedPositionToXy(attackedPosition);
-                IsShipHorizontal = ReadOrientatationFromLastShoots(convAttackedPosition);
+                IsShipHorizontal = ReadOrientationFromLastShoots(attackedPositionAsXy);
             }
             
         }

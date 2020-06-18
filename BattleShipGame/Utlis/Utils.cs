@@ -33,5 +33,18 @@ namespace ConsoleApp7.utils
             
             return literalShootPosition + posXy[1];
         }
+
+        public static int[] GenerateAndMakeUniqueRandomArray(List<int[]> listOfItems)
+        {
+            var arrOfRandNums = new int [2];
+            do
+            {
+                arrOfRandNums[0] = Utils.GenerateRandomFromToRange();
+                arrOfRandNums[1] = Utils.GenerateRandomFromToRange();
+            } while (listOfItems.Contains(arrOfRandNums));
+            listOfItems.Add(arrOfRandNums);
+            return arrOfRandNums;
+        }
     }
+    
 }
