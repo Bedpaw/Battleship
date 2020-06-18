@@ -3,6 +3,7 @@ using static System.Console;
 using System.Collections.Generic;
 using System.Text;
 using ConsoleApp7.Board.Ships;
+using ConsoleApp7.utils;
 
 namespace ConsoleApp7.Board
 {
@@ -36,7 +37,6 @@ namespace ConsoleApp7.Board
                 {
                     board[PosXY[0]][PosXY[1]+i].ShipOn = newShip;
                     board[PosXY[0]][PosXY[1]+i].IsShipOn = true;
-
                 }
             }
         }

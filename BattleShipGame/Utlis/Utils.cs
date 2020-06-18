@@ -39,11 +39,15 @@ namespace ConsoleApp7.utils
             var arrOfRandNums = new int [2];
             do
             {
-                arrOfRandNums[0] = Utils.GenerateRandomFromToRange();
-                arrOfRandNums[1] = Utils.GenerateRandomFromToRange();
+                arrOfRandNums[0] = GenerateRandomFromToRange();
+                arrOfRandNums[1] = GenerateRandomFromToRange();
             } while (listOfItems.Contains(arrOfRandNums));
             listOfItems.Add(arrOfRandNums);
             return arrOfRandNums;
+        }
+        public static int CalcLengthOfInt(int x)
+        {
+            return x.ToString().Length;
         }
     }
     

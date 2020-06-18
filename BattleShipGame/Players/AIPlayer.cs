@@ -15,8 +15,7 @@ namespace ConsoleApp7.Players
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
         private bool IsShipHorizontal { get; set; }
-        private bool 
-            ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
+        private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
         private bool IsShipHitNotSink => PositionsOfHitShip.Count != 0;
         
         private enum Difficulty
@@ -94,12 +93,10 @@ namespace ConsoleApp7.Players
             
             return posXy;
         }
-
         private bool ReadOrientationFromLastShoots(int [] attackedPosition)
         {
             return PositionsOfHitShip[0][0] + 1 == attackedPosition[0] || PositionsOfHitShip[0][0] - 1 == attackedPosition[0];
         }
-        
         protected override void SetShips(Ocean playerBoard)
         {
             var fleetForAi = ShipsCreation.CreateFleet();
@@ -114,18 +111,15 @@ namespace ConsoleApp7.Players
         public override bool[] UpdateMyBoard(string attackPosition)
         {
             var attackedPositionXy = Utils.ConvertAttackedPositionToXy(attackPosition);
-            
             var attackResult = PlayerBoard.GetShot(attackedPositionXy);
             return attackResult;
         }
         
-
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
             var attackedPositionAsXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
-            
-            var wojtekWtfDlaczegoMuszeRobicTakieCos = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]}; //:TODO !!!!!!!!!!!
-            UniqueShootsArray.Add(wojtekWtfDlaczegoMuszeRobicTakieCos);
+            attackedPositionAsXy = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]};
+            UniqueShootsArray.Add(attackedPositionAsXy);
             
             if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
                         
@@ -136,7 +130,6 @@ namespace ConsoleApp7.Players
                 if (ShipOrientationIsKnown) return;
                 IsShipHorizontal = ReadOrientationFromLastShoots(attackedPositionAsXy);
             }
-            
         }
 
         private static void PrintDifficultyOptionsToSelect()
@@ -169,7 +162,5 @@ namespace ConsoleApp7.Players
             }
             return Difficulty.Easy;
         }
-
-
     }
 }

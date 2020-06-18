@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ConsoleApp7.Board.Ships.ShipType;
 using ConsoleApp7.utils;
 using ConsoleApp7.Players;
+using ConsoleApp7.View;
 using static System.Console;
 
 namespace ConsoleApp7.Board.Ships
