@@ -14,6 +14,8 @@ namespace ConsoleApp7.Players
         private int _round; //ONLY FOR TESTS
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
+        
+        private List<int[]> WeightsOfShootsForHard {get; set;} = new List<int[]>();
         private bool IsShipHorizontal { get; set; }
         private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
         private bool IsShipHitNotSink => PositionsOfHitShip.Count != 0;
@@ -26,12 +28,33 @@ namespace ConsoleApp7.Players
         }
         private Difficulty DifficultyLevel { get;}
 
+
         public PlayerAI()
         {
             PlayerBoard = new Ocean(10, 10);
             DifficultyLevel = SetDifficultyLevel();
+            if (DifficultyLevel == Difficulty.Hard)
+                WeightsOfShootsForHard = InitWeightList();
+         
             PlayerNick = $"Computer {DifficultyLevel.ToString()}";
             SetShips(PlayerBoard);
+        }
+
+        private List<int[]> InitWeightList() // initX, initY TODO improve
+        {
+           var tempListToReturn = new List<int[]>();
+            for (int i = 0; i < 10; i++)
+            {
+                var tempArrToReturn = new int [10];
+                for (int j = 0; j < 10; j++)
+                {
+                    tempArrToReturn[j] = i == 0 && j == 0 ? 4 - 2 : i == 0 || j == 0 ? 4 - 1 : 4;
+                }
+
+                tempListToReturn.Append(tempArrToReturn);
+            }
+
+            return tempListToReturn;
         }
         public override string Attack()
         {
@@ -74,7 +97,7 @@ namespace ConsoleApp7.Players
             }
             return null;
         }
-        private static string HardAttack()
+        private string HardAttack()
         {
             /*
              *                                    ------- IDEA -------
@@ -86,6 +109,7 @@ namespace ConsoleApp7.Players
              * and then searching algorithm starts work again is quite a loop like that till end of game!
              * 
              */
+            var thislistneededhere = WeightsOfShootsForHard;
             return " ";
         }
         
