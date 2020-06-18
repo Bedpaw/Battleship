@@ -55,7 +55,7 @@ namespace ConsoleApp7.Board.Ships
             foreach (var ship in fleet)
             {  
                 Clear(); 
-                playerBoard.DisplayMyOcean(playerBoard);
+                ConsolePlayerBoardDisplay.DisplayMyOcean(playerBoard);
                 WriteLine($"Set {ship.Name} which has size on board: {ship.Size}");
                 
                 ship.Orientation = AskForOrientation();

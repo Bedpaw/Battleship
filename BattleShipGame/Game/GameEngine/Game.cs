@@ -30,12 +30,12 @@ namespace ConsoleApp7.Game.GameEngine
 
         private void DisplayAttackResults(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
-            Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+            ConsolePlayerBoardDisplay.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
             Display.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
             
             Display.DisplaySwapPlayers(DefendingPlayer.PlayerNick);
             
-            Ocean.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
+            ConsolePlayerBoardDisplay.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
             Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
 
         }
@@ -45,7 +45,7 @@ namespace ConsoleApp7.Game.GameEngine
             do
             {   
                 Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
-                Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
+                ConsolePlayerBoardDisplay.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 
                 var attackedPosition = AttackingPlayer.Attack();
                 
