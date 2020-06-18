@@ -76,7 +76,16 @@ namespace ConsoleApp7.Players
         }
         private static string HardAttack()
         {
-            //Hard attack follow algorithm and kill ship in less possible moves like medium
+            /*
+             *                                    ------- IDEA -------
+             * Every field gonna have its own weight which will be calculated based on possible neighbours
+             * If field is shoot and there is nothing the field automatically become 0 and its neighbours loose weight -1
+             * but only neighbourns up right down left are updated cross neighbourns remain same
+             *
+             * If field is has ship on it the algorithm used for detecting ship starts to work till ship is not destroyed
+             * and then searching algorithm starts work again is quite a loop like that till end of game!
+             * 
+             */
             return " ";
         }
         
