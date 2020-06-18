@@ -11,9 +11,8 @@ namespace ConsoleApp7.Players
 
         public abstract bool [] UpdateMyBoard(string attackPosition);
 
-        public abstract bool IsFleetAlive();
-
-
+        public bool IsFleetAlive() => PlayerBoard.Fleet.Exists(ship => ship.IsSunk == false);
+        
         public abstract void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink);
 
     }

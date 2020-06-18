@@ -50,15 +50,10 @@ namespace ConsoleApp7.Players
             var attackResult = PlayerBoard.GetShot(attackedPositionXy);
             return attackResult;
         }
-
-        public override bool IsFleetAlive()
-        {
-            return PlayerBoard.Fleet.Exists(ship => ship.IsSunk == false);
-        }
-
+        
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

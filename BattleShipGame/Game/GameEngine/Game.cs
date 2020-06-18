@@ -51,11 +51,8 @@ namespace ConsoleApp7.Game.GameEngine
                 
                 var isAttackSuccess = attackResult[0];
                 isHitAndSink = attackResult[1];
-                if (AttackingPlayer is PlayerAI)
-                {
-                    AttackingPlayer.SaveAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
-                }
-
+                
+                AttackingPlayer.SaveAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
                 
                 DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
                 if (isAttackSuccess == false) SwitchPLayers();
