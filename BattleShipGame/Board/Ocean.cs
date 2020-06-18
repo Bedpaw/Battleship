@@ -17,7 +17,7 @@ namespace ConsoleApp7.Board
         {
              this.initX = initX;
              this.initY = initY;
-             board = initNewBoard(this.initX, this.initY);
+             board = InitNewBoard(this.initX, this.initY);
         }
 
         public void AddNewShip(Ship newShip)
@@ -40,7 +40,7 @@ namespace ConsoleApp7.Board
                 }
             }
         }
-        public static List<List<Field>> initNewBoard(int sizeX, int sizeY)
+        public static List<List<Field>> InitNewBoard(int sizeX, int sizeY)
         {
             List<List<Field>> firstLevelList = new List<List<Field>>();
             
@@ -57,9 +57,9 @@ namespace ConsoleApp7.Board
             return firstLevelList;
         }
 
-        public bool[] GetShot(int[] attackedPostionXY)
+        public bool[] GetShot(int[] attackedPositionXy)
         {   
-            var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
+            var shotField = board[attackedPositionXy[0]][attackedPositionXy[1]];
             var isAttackSuccess = shotField.IsShipOn;
             var isHitAndSink = false;
 

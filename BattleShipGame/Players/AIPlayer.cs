@@ -15,7 +15,8 @@ namespace ConsoleApp7.Players
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
         private bool IsShipHorizontal { get; set; }
-        private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
+        private bool 
+            ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
         private bool IsShipHitNotSink => PositionsOfHitShip.Count != 0;
         
         private enum Difficulty
@@ -122,7 +123,9 @@ namespace ConsoleApp7.Players
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
             var attackedPositionAsXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
-            UniqueShootsArray.Add(attackedPositionAsXy);
+            
+            var wojtekWtfDlaczegoMuszeRobicTakieCos = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]}; //:TODO !!!!!!!!!!!
+            UniqueShootsArray.Add(wojtekWtfDlaczegoMuszeRobicTakieCos);
             
             if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
                         
