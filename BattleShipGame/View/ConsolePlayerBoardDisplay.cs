@@ -12,7 +12,17 @@ namespace ConsoleApp7.View
 {
     public class ConsolePlayerBoardDisplay
     {
-        
+        public static string CreateUpperCords(Ocean myOcean)
+        {
+            StringBuilder sb = new StringBuilder();
+            string SpaceHolder = new String(' ', 11);
+            sb.Append(SpaceHolder);
+            for (int i = 65; i < (65 + myOcean.initY); i++)
+            {
+                sb.Append($" {Convert.ToChar(i)} ");
+            }
+            return sb.ToString();
+        }
         public static List<string> CreateMiddleMap(Ocean myOcean, bool isEnemy)
         {
             int i = 0;
@@ -65,7 +75,7 @@ namespace ConsoleApp7.View
         public static List<String> JoinPartsToArray(Ocean someOcean, bool isEnemy = false)
         {
             List<String> playerOcean = new List<string>();
-            string cordsOcean = someOcean.CreateUpperCords();
+            string cordsOcean = CreateUpperCords(someOcean);
             List<String> oceanDrawing = CreateMiddleMap(someOcean, isEnemy);
             playerOcean.Add(cordsOcean);
 
