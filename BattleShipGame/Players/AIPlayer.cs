@@ -11,7 +11,7 @@ namespace ConsoleApp7.Players
 
     public class PlayerAI : Player
     {
-        private int _round = 0; //ONLY FOR TESTS
+        private int _round; //ONLY FOR TESTS
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
         private bool IsShipHorizontal { get; set; }
@@ -58,8 +58,9 @@ namespace ConsoleApp7.Players
         {
             //Medium attack randomly search for ship but when it hit into ship the ship will be
             //destroyed in less possible moves
-            if (_round == 0) return "A1"; // ONLY FOR TESTS
             _round++;
+            if (_round == 1) return "A1"; // ONLY FOR TESTS
+            
             if (!IsShipHitNotSink) return EasyAttack();
 
             foreach (var shipPosition in PositionsOfHitShip)
@@ -135,7 +136,7 @@ namespace ConsoleApp7.Players
             
         }
 
-        private void PrintDifficultyOptionsToSelect()
+        private static void PrintDifficultyOptionsToSelect()
         {
             Console.WriteLine("Choose difficulty level for computer you want to play with: ");
             Console.WriteLine("1. Easy");
@@ -143,7 +144,7 @@ namespace ConsoleApp7.Players
             Console.WriteLine("3. Hard");
         }
 
-        private int GetDifficultyOptionFromPlayer()
+        private static int GetDifficultyOptionFromPlayer()
         {
             var input = Console.ReadLine();
             Int32.TryParse(input, out var number);

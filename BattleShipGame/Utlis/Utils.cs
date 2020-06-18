@@ -30,8 +30,8 @@ namespace ConsoleApp7.utils
         public static string ConvertXYtoStringRepresentationOfCords(params int [] posXy)
         {    
             var literalShootPosition = NumberConversionToLetter(posXy[0]);
-            
-            return literalShootPosition + posXy[1];
+            var numberShotPosition = posXy[1] + 1;
+            return literalShootPosition + numberShotPosition;
         }
 
         public static int[] GenerateAndMakeUniqueRandomArray(List<int[]> listOfItems)

@@ -64,7 +64,7 @@ namespace ConsoleApp7.utils
         }
         public static bool IsFieldInBoardWidth(Ocean ocean, int posX)  => 0 <= posX && posX < ocean.initX;
         public static bool IsFieldInBoardHeight(Ocean ocean, int posY)  => 0 <= posY && posY < ocean.initY;
-        public static bool IsFieldInBoard(Ocean ocean, int[] posXy) => IsFieldInBoardWidth(ocean, posXy[0]) && IsFieldInBoardHeight(ocean, posXy[1]);
+        private static bool IsFieldInBoard(Ocean ocean, int[] posXy) => IsFieldInBoardWidth(ocean, posXy[0]) && IsFieldInBoardHeight(ocean, posXy[1]);
         private static bool IsShipInOrAroundField(Ocean ocean, int [] posXy)
         {
             var x = posXy[0];

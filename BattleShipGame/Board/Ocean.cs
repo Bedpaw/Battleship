@@ -58,7 +58,7 @@ namespace ConsoleApp7.Board
         }
 
         public bool[] GetShot(int[] attackedPostionXY)
-        {
+        {   
             var shotField = board[attackedPostionXY[0]][attackedPostionXY[1]];
             var isAttackSuccess = shotField.IsShipOn;
             var isHitAndSink = false;

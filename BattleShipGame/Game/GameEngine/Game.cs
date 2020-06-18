@@ -1,4 +1,5 @@
-﻿using ConsoleApp7.Board;
+﻿using System;
+using ConsoleApp7.Board;
 using ConsoleApp7.Players;
 using ConsoleApp7.View;
 
@@ -47,6 +48,7 @@ namespace ConsoleApp7.Game.GameEngine
                 Ocean.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 
                 var attackedPosition = AttackingPlayer.Attack();
+                
                 var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
                 
                 var isAttackSuccess = attackResult[0];
