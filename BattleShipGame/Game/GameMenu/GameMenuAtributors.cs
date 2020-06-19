@@ -25,13 +25,18 @@ namespace ConsoleApp7.Game.GameMenu
                 switch (selector)
                 {
                     case 1:
-                        var game = new GameEngine.Game(new ConsolePlayer(), new ConsolePlayer(), new ConsoleDisplay());
+                        var game = new GameEngine.Game(
+                            new ConsolePlayer(new ConsoleDisplay()),
+                            new ConsolePlayer(new ConsoleDisplay())
+                            );
                         game.GameLoop();
-
                         game.DisplayEndGameMessage();
                         break;
                     case 2:
-                        var gameWithComputer = new GameEngine.Game(new ConsolePlayer(), new PlayerAI(), new ConsoleDisplay());
+                        var gameWithComputer = new GameEngine.Game(
+                            new ConsolePlayer(new ConsoleDisplay()),
+                            new PlayerAI(new ConsoleDisplayAI())
+                            );
                         gameWithComputer.GameLoop();
                         gameWithComputer.DisplayEndGameMessage();
                         break;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ConsoleApp7.Board;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.utils;
+using ConsoleApp7.View;
 
 namespace ConsoleApp7.Players
 {
@@ -10,11 +11,10 @@ namespace ConsoleApp7.Players
 
     {
         private List<string> allPositionsAttackedByPlayer = new List<string>();
-
-        public ConsolePlayer()
+        public ConsolePlayer(IDisplay display)
         {
             PlayerBoard = new Ocean(10, 10);
-
+            Display = display;
             Console.Clear();
             Console.WriteLine("Set your Nick: ");
             PlayerNick = Console.ReadLine();

@@ -1,6 +1,4 @@
-﻿using System;
-using ConsoleApp7.Board;
-using ConsoleApp7.Players;
+﻿using ConsoleApp7.Players;
 using ConsoleApp7.View;
 
 namespace ConsoleApp7.Game.GameEngine
@@ -9,10 +7,8 @@ namespace ConsoleApp7.Game.GameEngine
     {
         private Player AttackingPlayer { get; set; }
         private Player DefendingPlayer { get; set; }
-        private IDisplay Display { get; }
-        public Game( Player player1, Player player2, IDisplay display )
+        public Game( Player player1, Player player2 )
         {
-            Display = display;
             AttackingPlayer = player1;
             DefendingPlayer = player2;
         }
@@ -31,12 +27,12 @@ namespace ConsoleApp7.Game.GameEngine
         private void DisplayAttackResults(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             ConsolePlayerBoardDisplay.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
-            Display.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
+            AttackingPlayer.Display.DisplayAttackingResult(attackedPosition, attackResult, isHitAndSink);
             
-            Display.DisplaySwapPlayers(DefendingPlayer.PlayerNick);
+            DefendingPlayer.Display.DisplaySwapPlayers(DefendingPlayer.PlayerNick, true);
             
             ConsolePlayerBoardDisplay.DisplayBothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
-            Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
+            DefendingPlayer.Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
 
         }
         public void GameLoop()
@@ -44,7 +40,7 @@ namespace ConsoleApp7.Game.GameEngine
             bool isHitAndSink;
             do
             {   
-                Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
+                AttackingPlayer.Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
                 ConsolePlayerBoardDisplay.DisplayBothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
                 
                 var attackedPosition = AttackingPlayer.Attack();
@@ -57,10 +53,12 @@ namespace ConsoleApp7.Game.GameEngine
                 AttackingPlayer.SaveAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
                 
                 DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
+                
                 if (isAttackSuccess == false) SwitchPLayers();
+                
             } while (IsNotEndGame(isHitAndSink));
         }
-        public void DisplayEndGameMessage() => Display.EndGameMessage(AttackingPlayer.PlayerNick);
+        public void DisplayEndGameMessage() => AttackingPlayer.Display.EndGameMessage(AttackingPlayer.PlayerNick);
 
     }
 }

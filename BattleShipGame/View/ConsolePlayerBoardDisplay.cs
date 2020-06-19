@@ -50,7 +50,7 @@ namespace ConsoleApp7.View
         }
         public static void DisplayBothOceans(Ocean MyOcean, Ocean EnemyOcean)
         {
-
+            Clear();
             var arrOcean1 = JoinPartsToArray(MyOcean);
             var arrOcean2 = JoinPartsToArray(EnemyOcean, true);
             for (int i = 0; i < arrOcean2.Count; i++)
@@ -63,7 +63,7 @@ namespace ConsoleApp7.View
         }
         
         public static void DisplayMyOcean(Ocean MyOcean)
-        {
+        {   Clear(); 
             var arrOcean = JoinPartsToArray(MyOcean);
 
             foreach (var row in arrOcean)
@@ -78,7 +78,7 @@ namespace ConsoleApp7.View
             string cordsOcean = CreateUpperCords(someOcean);
             List<String> oceanDrawing = CreateMiddleMap(someOcean, isEnemy);
             playerOcean.Add(cordsOcean);
-
+            
             foreach (var row in oceanDrawing)
             {
                 playerOcean.Add(row);

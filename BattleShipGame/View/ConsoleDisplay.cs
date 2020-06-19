@@ -4,6 +4,14 @@ namespace ConsoleApp7.View
 {
     public class ConsoleDisplay : IDisplay
     {
+        public ConsolePlayerBoardDisplay BoardDisplay { get; set; } = new ConsolePlayerBoardDisplay();
+
+        public string SetNick()
+        { 
+            Console.Clear();
+            Console.WriteLine("Set your Nick: ");
+            return Console.ReadLine();
+        }
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             var messageToDisplay = $"You shot into {attackedPosition}. ";
@@ -45,9 +53,14 @@ namespace ConsoleApp7.View
             Console.WriteLine($"{winnerNick} has was game! Congratulations!");
         }
 
-        public void DisplaySwapPlayers(string enemyPlayerNick)
-        {   Console.Clear(); 
-            Console.WriteLine($"Time for {enemyPlayerNick}!\nClick any button to continue...");
+        public void DisplaySwapPlayers(string playerNick, bool isBetweenAttackResult)
+        {
+            var message = isBetweenAttackResult
+                ? $"{playerNick} has been attacked!\nClick any button to continue..."
+                : $"Time for {playerNick}!\nClick any button to continue...";
+            
+            Console.Clear(); 
+            Console.WriteLine(message);
             Console.ReadKey();
             Console.Clear();
         }

@@ -5,6 +5,7 @@ using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Board;
 using ConsoleApp7.utils;
 using ConsoleApp7.Utlis;
+using ConsoleApp7.View;
 
 namespace ConsoleApp7.Players
 {
@@ -26,9 +27,10 @@ namespace ConsoleApp7.Players
         }
         private Difficulty DifficultyLevel { get;}
 
-        public PlayerAI()
-        {
+        public PlayerAI(IDisplay display)
+        {    
             PlayerBoard = new Ocean(10, 10);
+            Display = display;
             DifficultyLevel = SetDifficultyLevel();
             PlayerNick = $"Computer {DifficultyLevel.ToString()}";
             SetShips(PlayerBoard);
@@ -134,6 +136,7 @@ namespace ConsoleApp7.Players
 
         private static void PrintDifficultyOptionsToSelect()
         {
+            Console.Clear();
             Console.WriteLine("Choose difficulty level for computer you want to play with: ");
             Console.WriteLine("1. Easy");
             Console.WriteLine("2. Medium");
@@ -144,6 +147,7 @@ namespace ConsoleApp7.Players
         {
             var input = Console.ReadLine();
             Int32.TryParse(input, out var number);
+            Console.Clear();
             return number;
         }
         

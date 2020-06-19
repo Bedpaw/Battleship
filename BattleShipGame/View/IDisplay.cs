@@ -7,7 +7,7 @@
         public void DisplayDefendingResult(string attackedPosition, bool attackResult, bool isHitAndSink);
         
         public void EndGameMessage(string winnerNick);
-        
-        public void DisplaySwapPlayers(string enemyPlayerNick);
+
+        public void DisplaySwapPlayers(string enemyPlayerNick, bool isBetweenAttackResults = false);
     }
 }

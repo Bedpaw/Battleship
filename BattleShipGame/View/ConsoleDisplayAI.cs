@@ -1,25 +1,35 @@
-﻿namespace ConsoleApp7.View
+﻿using System;
+using System.Threading;
+
+namespace ConsoleApp7.View
 {
     public class ConsoleDisplayAI: IDisplay
     {
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void DisplayDefendingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
-            throw new System.NotImplementedException();
+    
         }
 
         public void EndGameMessage(string winnerNick)
         {
-            throw new System.NotImplementedException();
+            Console.Clear();
+            Console.WriteLine($"{winnerNick} has was game! Congratulations!");
         }
 
-        public void DisplaySwapPlayers(string enemyPlayerNick)
+        public void DisplaySwapPlayers(string playerNick, bool isBetweenAttackResults)
         {
-            throw new System.NotImplementedException();
+            if (!isBetweenAttackResults)
+            {
+                Console.Clear();
+                Console.WriteLine($"{playerNick} is doing his move!");
+                Thread.Sleep(1000);
+            }
+            Console.Clear();
         }
     }
 }

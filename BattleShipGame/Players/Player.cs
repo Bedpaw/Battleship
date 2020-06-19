@@ -1,9 +1,11 @@
 ﻿using ConsoleApp7.Board;
+using ConsoleApp7.View;
 
 namespace ConsoleApp7.Players
 {
     public abstract class Player
     {
+        public IDisplay Display; 
         public Ocean PlayerBoard;
         public string PlayerNick;
         public abstract string Attack();
