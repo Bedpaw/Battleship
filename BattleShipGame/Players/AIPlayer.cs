@@ -43,12 +43,15 @@ namespace ConsoleApp7.Players
         private List<int[]> InitWeightList() // initX, initY TODO improve
         {
            var tempListToReturn = new List<int[]>();
-            for (int i = 0; i < 10; i++)
+           int maxSizeX = 10;
+           int maxSizeY = 10;
+           int initWeigth = 4;
+            for (int i = 0; i < maxSizeX; i++)
             {
                 var tempArrToReturn = new int [10];
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < maxSizeY; j++)
                 {
-                    tempArrToReturn[j] = i == 0 && j == 0 ? 4 - 2 : i == 0 || j == 0 ? 4 - 1 : 4;
+                    tempArrToReturn[j] = i == 0 && j == 0 ?  initWeigth - 2 : i == 0 || j == 0 ?  initWeigth - 1 :  initWeigth;
                 }
 
                 tempListToReturn.Append(tempArrToReturn);
@@ -77,15 +80,8 @@ namespace ConsoleApp7.Players
             return Utils.ConvertXYtoStringRepresentationOfCords(randomPositionsAttack);
         }
 
-        private string MediumAttack()
+        private string KillShipIfShoot()
         {
-            //Medium attack randomly search for ship but when it hit into ship the ship will be
-            //destroyed in less possible moves
-            _round++;
-            if (_round == 1) return "A1"; // ONLY FOR TESTS
-            
-            if (!IsShipHitNotSink) return EasyAttack();
-
             foreach (var shipPosition in PositionsOfHitShip)
             {
                 var shipPos = new OceanFieldValidator(shipPosition, PlayerBoard, UniqueShootsArray);
@@ -96,6 +92,17 @@ namespace ConsoleApp7.Players
                 if (!IsShipHorizontal) if (shipPos.IsValidVertical) return shipPos.GetAsString(shipPos.GetValidVertical());
             }
             return null;
+        }
+
+        private string MediumAttack()
+        {
+            //Medium attack randomly search for ship but when it hit into ship the ship will be
+            //destroyed in less possible moves
+            _round++;
+            if (_round == 1) return "A1"; // ONLY FOR TESTS
+            if (!IsShipHitNotSink) return EasyAttack();
+            return KillShipIfShoot();
+            
         }
         private string HardAttack()
         {
@@ -109,7 +116,15 @@ namespace ConsoleApp7.Players
              * and then searching algorithm starts work again is quite a loop like that till end of game!
              * 
              */
+            if (IsShipHitNotSink)
+            {
+                return KillShipIfShoot();
+            }
+            
             var thislistneededhere = WeightsOfShootsForHard;
+            
+            
+            
             return " ";
         }
         
