@@ -33,7 +33,7 @@ namespace ConsoleApp7.Players
             Display = display;
             DifficultyLevel = SetDifficultyLevel();
             PlayerNick = $"Computer {DifficultyLevel.ToString()}";
-            SetShips(PlayerBoard);
+            SetShips(PlayerBoard, display.DisplayOcean);
         }
         public override string Attack()
         {
@@ -99,7 +99,7 @@ namespace ConsoleApp7.Players
         {
             return PositionsOfHitShip[0][0] + 1 == attackedPosition[0] || PositionsOfHitShip[0][0] - 1 == attackedPosition[0];
         }
-        protected override void SetShips(Ocean playerBoard)
+        protected override void SetShips(Ocean playerBoard, IOceanDisplay displayOcean)
         {
             var fleetForAi = ShipsCreation.CreateFleet();
 

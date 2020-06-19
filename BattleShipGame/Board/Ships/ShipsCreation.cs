@@ -40,22 +40,22 @@ namespace ConsoleApp7.Board.Ships
         {
             var arrayShips = new List<Ship>
             {
-                /*/*new Destroyer(),#1#
+                new Destroyer(),
                 new Submarine(),
-                new Battleship(),*/
+                new Battleship(),
                 new Carrier()
             };
 
             return arrayShips;
         }
-        public static void AddFleetToPlayerBoard(Ocean playerBoard)
+        public static void AddFleetToPlayerBoard(Ocean playerBoard, IOceanDisplay display)
         {
             var fleet = CreateFleet();
 
             foreach (var ship in fleet)
             {  
                 Clear(); 
-                ConsolePlayerBoardDisplay.DisplayMyOcean(playerBoard);
+                display.MyOcean(playerBoard);
                 WriteLine($"Set {ship.Name} which has size on board: {ship.Size}");
                 
                 ship.Orientation = AskForOrientation();

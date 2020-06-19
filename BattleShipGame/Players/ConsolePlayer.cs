@@ -21,7 +21,7 @@ namespace ConsoleApp7.Players
 
             Console.Clear();
             Console.WriteLine("Set your Ships:");
-            SetShips(PlayerBoard);
+            SetShips(PlayerBoard, display.DisplayOcean);
         }
 
         public override string Attack()
@@ -37,10 +37,11 @@ namespace ConsoleApp7.Players
             allPositionsAttackedByPlayer.Add(attackedPosition);
             return attackedPosition;
         }
+        
 
-        protected override void SetShips(Ocean playerBoard)
+        protected override void SetShips(Ocean playerBoard, IOceanDisplay displayOcean)
         {
-            ShipsCreation.AddFleetToPlayerBoard(playerBoard);
+            ShipsCreation.AddFleetToPlayerBoard(playerBoard, displayOcean);
         }
 
 

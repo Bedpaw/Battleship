@@ -5,6 +5,8 @@ namespace ConsoleApp7.View
 {
     public class ConsoleDisplayAI: IDisplay
     {
+        public IOceanDisplay DisplayOcean { get; set; } = new OceanNotDisplaying();
+
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             

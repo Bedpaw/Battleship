@@ -9,7 +9,7 @@ namespace ConsoleApp7.Players
         public Ocean PlayerBoard;
         public string PlayerNick;
         public abstract string Attack();
-        protected abstract void SetShips(Ocean playerBoard);
+        protected abstract void SetShips(Ocean playerBoard, IOceanDisplay displayOcean);
 
         public abstract bool [] UpdateMyBoard(string attackPosition);
 

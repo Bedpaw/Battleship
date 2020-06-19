@@ -4,14 +4,15 @@ namespace ConsoleApp7.View
 {
     public class ConsoleDisplay : IDisplay
     {
-        public ConsolePlayerBoardDisplay BoardDisplay { get; set; } = new ConsolePlayerBoardDisplay();
-
         public string SetNick()
         { 
             Console.Clear();
             Console.WriteLine("Set your Nick: ");
             return Console.ReadLine();
         }
+
+        public IOceanDisplay DisplayOcean { get; set; } = new ConsoleOceanDisplay();
+
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             var messageToDisplay = $"You shot into {attackedPosition}. ";
