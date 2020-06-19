@@ -42,20 +42,19 @@ namespace ConsoleApp7.Players
         }
 
         private int[,] InitWeightList()
-        {
-           
-           int maxSizeX = 10;
-           int maxSizeY = 10;
-           var tempArrToReturn = new int [maxSizeX,maxSizeY];
-           int initWeigth = 4;
-            for (int i = 0; i < maxSizeX; i++)
+        { 
+            int maxSizeX = 9; // as array index
+            int maxSizeY = 9; // as array index
+            var tempArrToReturn = new int [maxSizeX + 1, maxSizeY + 1];
+            
+            bool IsBoardCorner(int i, int j) => (i == 0 || i == maxSizeX) && (j == 0 || j == maxSizeY);
+            bool IsBoardBorder(int i, int j) => j == 0 || i == 0 || j == maxSizeY || i == maxSizeX;
+            
+            for (int i = 0; i <= maxSizeX; i++)
             {
-                int weight;
-                for (int j = 0; j < maxSizeY; j++)
+                for (int j = 0; j <= maxSizeY; j++)
                 {
-                    weight = (i == 0 && j == 0) || (i == maxSizeX - 1 && j == maxSizeY - 1) ? initWeigth - 2 :
-                        (i == 0 || j == 0 || i == maxSizeX - 1 || i == maxSizeY - 1) ? initWeigth - 1 : initWeigth;
-                    tempArrToReturn[i,j] = weight;
+                    tempArrToReturn[i,j] = IsBoardCorner(i, j) ? 2 : IsBoardBorder(i, j) ? 3 : 4;
                 }
             }
             return tempArrToReturn;
@@ -99,8 +98,8 @@ namespace ConsoleApp7.Players
         {
             //Medium attack randomly search for ship but when it hit into ship the ship will be
             //destroyed in less possible moves
-            _round++;
-            if (_round == 1) return "A1"; // ONLY FOR TESTS
+            /*_round++;
+            if (_round == 1) return "A1"; // ONLY FOR TESTS*/
             if (!IsShipHitNotSink) return EasyAttack();
             return KillShipIfShoot();
         }
@@ -116,7 +115,7 @@ namespace ConsoleApp7.Players
                 // iterate over array of elements in order to find max element
                 for (int j = 0; j < 10; j++)
                 {
-                    if (maxValue <= WeightsOfShootsForHard[i,j])
+                    if (maxValue < WeightsOfShootsForHard[i,j])
                     {
                         maxValue = WeightsOfShootsForHard[i,j];
                         posX = i;
@@ -124,9 +123,7 @@ namespace ConsoleApp7.Players
                     }
                 }
             }
-            Console.WriteLine($"Position max value is {posX}, {posY}");
-            Console.ReadLine();
-            return new [] {posX, posY-1};
+            return new [] {posX, posY};
         }
         
         
