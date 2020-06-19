@@ -50,6 +50,7 @@ namespace ConsoleApp7.Players
         {
             var attackedPositionXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
             var attackResult = PlayerBoard.GetShot(attackedPositionXy);
+            
             return attackResult;
         }
         
@@ -81,7 +82,7 @@ namespace ConsoleApp7.Players
 
             return Utils.ConvertAttackedPositionToXy(startPosition);
         }
-
+        
         private static string SetNick()
         { 
             Console.Clear();

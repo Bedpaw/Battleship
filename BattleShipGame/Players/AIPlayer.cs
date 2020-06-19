@@ -155,8 +155,11 @@ namespace ConsoleApp7.Players
             var fakedAttackedPositionAsXy = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]};
             
             UniqueShootsArray.Add(fakedAttackedPositionAsXy);
-            
-            if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
+
+            if (isHitAndSink)
+            {
+                PositionsOfHitShip = new List<int[]>();
+            }
                         
             else if (isAttackSuccess)
             {    
@@ -166,6 +169,19 @@ namespace ConsoleApp7.Players
             }
         }
 
+        private void MarkAsShotAllPositionsAroundSunkShip()
+        {   //: TODO move to other place
+            foreach (var shipPosition in PositionsOfHitShip)
+            {
+                var shipPos = new OceanFieldValidator(shipPosition, PlayerBoard, UniqueShootsArray);
+                if (shipPos.IsValidFieldAround)
+                {
+                    var fieldToShot = shipPos.GetValidFieldAround();
+                    PlayerBoard.GetShot(fieldToShot);
+                    UniqueShootsArray.Add(fieldToShot);
+                } 
+            } 
+        }
         private static void PrintDifficultyOptionsToSelect()
         {
             Console.Clear();
