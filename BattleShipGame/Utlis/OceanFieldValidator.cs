@@ -34,6 +34,11 @@ namespace ConsoleApp7.Utlis
             SetProperties();
         }
 
+        public void AddToForbiddenList(int [] num)
+        {
+            ForbiddenPositions.Add(num);
+        }
+
         private void SetProperties()
         {
             X = OceanField[0];

@@ -105,17 +105,6 @@ namespace ConsoleApp7.Players
             return KillShipIfShoot();
         }
 
-        // private void PrintWeightBoard()
-        // {
-        //     foreach (var row in WeightsOfShootsForHard)
-        //     {
-        //         foreach (var elem in row)
-        //         {
-        //             Console.WriteLine(elem);
-        //         }
-        //     }
-        // }
-
         private int [] ChoseMaxWeightFromList()
         {
             int posX = 0;
@@ -137,21 +126,21 @@ namespace ConsoleApp7.Players
             }
             Console.WriteLine($"Position max value is {posX}, {posY}");
             Console.ReadLine();
-            return new int [2] {posX, posY};
+            return new [] {posX, posY-1};
         }
+        
+        
         private void UpdateWeightsBoardAfterAttack(int [] attackedPos) 
         {
-            // implementation unfortunately only negative weights
-            // it should be also positive ones for this algorithm! TODO
             WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]] = 0;
-            if(WeightsOfShootsForHard[attackedPos[0]+1 ,attackedPos[1]] > 0)
-                WeightsOfShootsForHard[attackedPos[0]+1 ,attackedPos[1]] --;
-            if(WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]] > 0)
-                WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]] --;
-            if(WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]+1] > 0)
-                WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]+1] --;
-            if(WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]-1] > 0)
-                WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]-1] --;
+            var posAttack = new OceanFieldValidator(attackedPos, PlayerBoard, new List<int[]>());
+            
+            while(posAttack.IsValidFieldAround)
+            {
+                var posXy = posAttack.GetValidFieldAround(); // x, y
+                posAttack.AddToForbiddenList(posXy);
+                WeightsOfShootsForHard[posXy[0], posXy[1]]--;
+            }
         }
         private string HardAttack()
         {
@@ -167,10 +156,7 @@ namespace ConsoleApp7.Players
              */
             if (!IsShipHitNotSink)
             {
-                // PrintWeightBoard();
-                // Console.ReadLine();
                 var attackedPosition = ChoseMaxWeightFromList();
-                // Console.WriteLine($"{attackedPosition[0]}{attackedPosition[1]}");
                 UpdateWeightsBoardAfterAttack(attackedPosition);
                 return Utils.ConvertXYtoStringRepresentationOfCords(attackedPosition);
             }
