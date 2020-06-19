@@ -16,8 +16,8 @@ namespace ConsoleApp7.Players
         private int _round; //ONLY FOR TESTS
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
-        
-        private List<int[]> WeightsOfShootsForHard {get; set;} = new List<int[]>();
+
+        private int[,] WeightsOfShootsForHard { get; set; }
         private bool IsShipHorizontal { get; set; }
         private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
         private bool IsShipHitNotSink => PositionsOfHitShip.Count != 0;
@@ -35,30 +35,30 @@ namespace ConsoleApp7.Players
             PlayerBoard = new Ocean(10, 10);
             Display = display;
             DifficultyLevel = SetDifficultyLevel();
-            if (DifficultyLevel == Difficulty.Hard) 
-                WeightsOfShootsForHard = InitWeightList();
+            // if (DifficultyLevel == Difficulty.Hard) 
+            WeightsOfShootsForHard = InitWeightList();
             PlayerNick = $"Computer {DifficultyLevel.ToString()}";
             SetShips(PlayerBoard, Display.DisplayOcean);
         }
 
-        private List<int[]> InitWeightList() // initX, initY TODO improve
+        private int[,] InitWeightList()
         {
-           var tempListToReturn = new List<int[]>();
+           
            int maxSizeX = 10;
            int maxSizeY = 10;
+           var tempArrToReturn = new int [maxSizeX,maxSizeY];
            int initWeigth = 4;
             for (int i = 0; i < maxSizeX; i++)
             {
-                var tempArrToReturn = new int [10];
+                int weight;
                 for (int j = 0; j < maxSizeY; j++)
                 {
-                    tempArrToReturn[j] = i == 0 && j == 0 ?  initWeigth - 2 : i == 0 || j == 0 ?  initWeigth - 1 :  initWeigth;
+                    weight = (i == 0 && j == 0) || (i == maxSizeX - 1 && j == maxSizeY - 1) ? initWeigth - 2 :
+                        (i == 0 || j == 0 || i == maxSizeX - 1 || i == maxSizeY - 1) ? initWeigth - 1 : initWeigth;
+                    tempArrToReturn[i,j] = weight;
                 }
-
-                tempListToReturn.Append(tempArrToReturn);
             }
-
-            return tempListToReturn;
+            return tempArrToReturn;
         }
         public override string Attack()
         {
@@ -103,7 +103,55 @@ namespace ConsoleApp7.Players
             if (_round == 1) return "A1"; // ONLY FOR TESTS
             if (!IsShipHitNotSink) return EasyAttack();
             return KillShipIfShoot();
-            
+        }
+
+        // private void PrintWeightBoard()
+        // {
+        //     foreach (var row in WeightsOfShootsForHard)
+        //     {
+        //         foreach (var elem in row)
+        //         {
+        //             Console.WriteLine(elem);
+        //         }
+        //     }
+        // }
+
+        private int [] ChoseMaxWeightFromList()
+        {
+            int posX = 0;
+            int posY = 0;
+            int maxValue = 0;
+            // iterate over list of arrays
+            for (int i = 0; i < 10; i++)
+            {
+                // iterate over array of elements in order to find max element
+                for (int j = 0; j < 10; j++)
+                {
+                    if (maxValue <= WeightsOfShootsForHard[i,j])
+                    {
+                        maxValue = WeightsOfShootsForHard[i,j];
+                        posX = i;
+                        posY = j;
+                    }
+                }
+            }
+            Console.WriteLine($"Position max value is {posX}, {posY}");
+            Console.ReadLine();
+            return new int [2] {posX, posY};
+        }
+        private void UpdateWeightsBoardAfterAttack(int [] attackedPos) 
+        {
+            // implementation unfortunately only negative weights
+            // it should be also positive ones for this algorithm! TODO
+            WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]] = 0;
+            if(WeightsOfShootsForHard[attackedPos[0]+1 ,attackedPos[1]] > 0)
+                WeightsOfShootsForHard[attackedPos[0]+1 ,attackedPos[1]] --;
+            if(WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]] > 0)
+                WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]] --;
+            if(WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]+1] > 0)
+                WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]+1] --;
+            if(WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]-1] > 0)
+                WeightsOfShootsForHard[attackedPos[0]-1 ,attackedPos[1]-1] --;
         }
         private string HardAttack()
         {
@@ -117,16 +165,16 @@ namespace ConsoleApp7.Players
              * and then searching algorithm starts work again is quite a loop like that till end of game!
              * 
              */
-            if (IsShipHitNotSink)
+            if (!IsShipHitNotSink)
             {
-                return KillShipIfShoot();
+                // PrintWeightBoard();
+                // Console.ReadLine();
+                var attackedPosition = ChoseMaxWeightFromList();
+                // Console.WriteLine($"{attackedPosition[0]}{attackedPosition[1]}");
+                UpdateWeightsBoardAfterAttack(attackedPosition);
+                return Utils.ConvertXYtoStringRepresentationOfCords(attackedPosition);
             }
-            
-            var thislistneededhere = WeightsOfShootsForHard;
-            
-            
-            
-            return " ";
+            return KillShipIfShoot();
         }
         
         private static int GenerateOrientation() => Utils.GenerateRandomFromToRange(1, 2);

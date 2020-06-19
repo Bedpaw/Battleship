@@ -49,7 +49,7 @@ namespace ConsoleApp7.Game.GameMenu
                         gameAIvsAi.GameLoop();
                         gameAIvsAi.DisplayEndGameMessage();
                         break;
-                        break;
+
                     case 4:
                         WriteLine("Not implemented yet");
                         break;
