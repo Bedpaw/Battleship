@@ -1,4 +1,5 @@
 ﻿using ConsoleApp7.Board;
+using ConsoleApp7.Interface;
 using ConsoleApp7.View;
 
 namespace ConsoleApp7.Players
@@ -10,7 +11,7 @@ namespace ConsoleApp7.Players
             throw new System.NotImplementedException();
         }
 
-        protected override void SetShips(Ocean playerBoard, IOceanDisplay displayOcean)
+        protected override void SetShips(Ocean playerBoard, IOceanDisplay oceanDisplay)
         {
             throw new System.NotImplementedException();
         }

@@ -3,6 +3,7 @@ using static System.Console;
 using System.Collections.Generic;
 using System.Text;
 using ConsoleApp7.Board;
+using ConsoleApp7.Interface;
 using ConsoleApp7.utils;
 namespace ConsoleApp7.View
 

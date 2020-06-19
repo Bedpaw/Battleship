@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ConsoleApp7.Board.Ships;
 using ConsoleApp7.Board;
+using ConsoleApp7.Interface;
 using ConsoleApp7.utils;
 using ConsoleApp7.Utlis;
 using ConsoleApp7.View;
@@ -37,7 +38,7 @@ namespace ConsoleApp7.Players
             if (DifficultyLevel == Difficulty.Hard) 
                 WeightsOfShootsForHard = InitWeightList();
             PlayerNick = $"Computer {DifficultyLevel.ToString()}";
-            SetShips(PlayerBoard, display.DisplayOcean);
+            SetShips(PlayerBoard, Display.DisplayOcean);
         }
 
         private List<int[]> InitWeightList() // initX, initY TODO improve
@@ -126,11 +127,11 @@ namespace ConsoleApp7.Players
             
             return posXy;
         }
-        private bool ReadOrientationFromLastShoots(int [] attackedPosition)
+        private bool CheckIfOrientationIsHorizontal(int [] attackedPosition)
         {
             return PositionsOfHitShip[0][0] + 1 == attackedPosition[0] || PositionsOfHitShip[0][0] - 1 == attackedPosition[0];
         }
-        protected override void SetShips(Ocean playerBoard, IOceanDisplay displayOcean)
+        protected override void SetShips(Ocean playerBoard, IOceanDisplay oceanDisplay)
         {
             var fleetForAi = ShipsCreation.CreateFleet();
 
@@ -151,17 +152,18 @@ namespace ConsoleApp7.Players
         public override void SaveAttackResults(string attackedPosition, bool isAttackSuccess, bool isHitAndSink)
         {
             var attackedPositionAsXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
-            attackedPositionAsXy = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]};
-            UniqueShootsArray.Add(attackedPositionAsXy);
+            var fakedAttackedPositionAsXy = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]};
+            
+            UniqueShootsArray.Add(fakedAttackedPositionAsXy);
             
             if (isHitAndSink) PositionsOfHitShip = new List<int[]>();
                         
             else if (isAttackSuccess)
             {    
-                PositionsOfHitShip.Add(attackedPositionAsXy);
+                PositionsOfHitShip.Add(fakedAttackedPositionAsXy);
                 
                 if (ShipOrientationIsKnown) return;
-                IsShipHorizontal = ReadOrientationFromLastShoots(attackedPositionAsXy);
+                IsShipHorizontal = CheckIfOrientationIsHorizontal(attackedPositionAsXy);
             }
         }
 

@@ -18,52 +18,53 @@ namespace ConsoleApp7.Board
         {
              this.initX = initX;
              this.initY = initY;
-             board = InitNewBoard(this.initX, this.initY);
+             board = InitNewBoard(initX, initY);
         }
-
-        public void AddNewShip(Ship newShip)
+        
+        private static List<List<Field>> InitNewBoard(int sizeX, int sizeY)
         {
-            Fleet.Add(newShip);
-            for (int i = 0; i < newShip.Size; i++)
-            {
-                int[] PosXY = newShip.StartPositions;
-                if (newShip.Orientation == 1)
-                {
-                    board[PosXY[0]+i][PosXY[1]].ShipOn = newShip;
-                    board[PosXY[0]+i][PosXY[1]].IsShipOn = true;
-
-                }
-                else if(newShip.Orientation == 2)
-                {
-                    board[PosXY[0]][PosXY[1]+i].ShipOn = newShip;
-                    board[PosXY[0]][PosXY[1]+i].IsShipOn = true;
-                }
-            }
-        }
-        public static List<List<Field>> InitNewBoard(int sizeX, int sizeY)
-        {
-            List<List<Field>> firstLevelList = new List<List<Field>>();
+            var firstLevelList = new List<List<Field>>();
             
-            for (int i = 0; i < sizeX; i++)
+            for (var i = 0; i < sizeX; i++)
             {
-               List<Field> secondLevelList = new List<Field>();
-                for (int j = 0; j < sizeY; j++)
+               var secondLevelList = new List<Field>();
+                for (var j = 0; j < sizeY; j++)
                 { 
-                    Field tempField = new Field();
+                    var tempField = new Field();
                     secondLevelList.Add(tempField);
                 }
                 firstLevelList.Add(secondLevelList);
             }
             return firstLevelList;
         }
-
+        
+        public void AddNewShip(Ship newShip)
+        {
+            Fleet.Add(newShip);
+            for (var i = 0; i < newShip.Size; i++)
+            {
+                var posXy = newShip.StartPositions;
+                
+                switch (newShip.Orientation)
+                {
+                    case 1:
+                        board[posXy[0]+i][posXy[1]].ShipOn = newShip;
+                        board[posXy[0]+i][posXy[1]].IsShipOn = true;
+                        break;
+                    case 2:
+                        board[posXy[0]][posXy[1]+i].ShipOn = newShip;
+                        board[posXy[0]][posXy[1]+i].IsShipOn = true;
+                        break;
+                }
+            }
+        }
         public bool[] GetShot(int[] attackedPositionXy)
         {   
             var shotField = board[attackedPositionXy[0]][attackedPositionXy[1]];
+            shotField.FieldIsShut = true;
+
             var isAttackSuccess = shotField.IsShipOn;
             var isHitAndSink = false;
-
-            shotField.FieldIsShut = true;
             
             if (isAttackSuccess)
             {
