@@ -128,7 +128,7 @@ namespace ConsoleApp7.Players
             return posXy;
         }
         private bool CheckIfOrientationIsHorizontal(int [] attackedPosition)
-        {
+        {   
             return PositionsOfHitShip[0][0] + 1 == attackedPosition[0] || PositionsOfHitShip[0][0] - 1 == attackedPosition[0];
         }
         protected override void SetShips(Ocean playerBoard, IOceanDisplay oceanDisplay)
@@ -162,8 +162,7 @@ namespace ConsoleApp7.Players
             {    
                 PositionsOfHitShip.Add(fakedAttackedPositionAsXy);
                 
-                if (ShipOrientationIsKnown) return;
-                IsShipHorizontal = CheckIfOrientationIsHorizontal(attackedPositionAsXy);
+                if (PositionsOfHitShip.Count == 2) IsShipHorizontal = CheckIfOrientationIsHorizontal(fakedAttackedPositionAsXy);
             }
         }
 
