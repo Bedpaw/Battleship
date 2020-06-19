@@ -50,11 +50,8 @@ namespace ConsoleApp7.Utlis
 
         }
 
-        private bool IsInForbiddenPositions (int[] position) 
-        {
-            return ForbiddenPositions.Exists( forbiddenPosition => forbiddenPosition.SequenceEqual(position));
-        }
-
+        private bool IsInForbiddenPositions(int[] position) => Utils.IsArrayDuplicateInList(ForbiddenPositions, position);
+        
         private bool IsRightValid => Validation.IsFieldInBoardWidth(PlayerBoard, X + 1) && !IsInForbiddenPositions(Right);
         private bool IsLeftValid => Validation.IsFieldInBoardWidth(PlayerBoard, X - 1) && !IsInForbiddenPositions(Left);
         private bool IsUpValid => Validation.IsFieldInBoardHeight(PlayerBoard, Y - 1) && !IsInForbiddenPositions(Up);

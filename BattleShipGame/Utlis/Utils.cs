@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp7.utils
 {
@@ -41,13 +42,19 @@ namespace ConsoleApp7.utils
             {
                 arrOfRandNums[0] = GenerateRandomFromToRange();
                 arrOfRandNums[1] = GenerateRandomFromToRange();
-            } while (listOfItems.Contains(arrOfRandNums));
+            } while (IsArrayDuplicateInList(listOfItems, arrOfRandNums));
+            
             listOfItems.Add(arrOfRandNums);
             return arrOfRandNums;
         }
         public static int CalcLengthOfInt(int x)
         {
             return x.ToString().Length;
+        }
+
+        public static bool IsArrayDuplicateInList(List<int[]> list, IEnumerable<int> array)
+        {
+            return list.Exists(forbiddenPosition => forbiddenPosition.SequenceEqual(array));
         }
     }
     
