@@ -1,4 +1,5 @@
 ﻿using ConsoleApp7.Board;
+using ConsoleApp7.Interface;
 
 namespace ConsoleApp7.View
 {

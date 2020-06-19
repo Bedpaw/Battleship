@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp7.View
+﻿namespace ConsoleApp7.Interface
 {
     public interface IDisplay
     {

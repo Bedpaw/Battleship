@@ -1,16 +1,35 @@
 ﻿using ConsoleApp7.Players;
-using ConsoleApp7.View;
 
 namespace ConsoleApp7.Game.GameEngine
 {
     public class Game
-    {
+    { 
         private Player AttackingPlayer { get; set; }
         private Player DefendingPlayer { get; set; }
         public Game( Player player1, Player player2 )
         {
             AttackingPlayer = player1;
             DefendingPlayer = player2;
+        }
+        public void GameLoop()
+        {
+            bool isHitAndSink;
+            do
+            {
+                DisplayStartRoundInfo();
+                
+                var attackedPosition = AttackingPlayer.Attack();
+                var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
+                
+                var isAttackSuccess = attackResult[0];
+                isHitAndSink = attackResult[1];
+                
+                AttackingPlayer.SaveAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
+                DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
+                
+                if (isAttackSuccess == false) SwitchPLayers();
+                
+            } while (IsNotEndGame(isHitAndSink));
         }
         private bool IsNotEndGame(bool isHitAndSink)
         {   
@@ -33,31 +52,14 @@ namespace ConsoleApp7.Game.GameEngine
             
             DefendingPlayer.Display.DisplayOcean.BothOceans(DefendingPlayer.PlayerBoard, AttackingPlayer.PlayerBoard);
             DefendingPlayer.Display.DisplayDefendingResult(attackedPosition, attackResult, isHitAndSink);
+        }
 
-        }
-        public void GameLoop()
+        private void DisplayStartRoundInfo()
         {
-            bool isHitAndSink;
-            do
-            {   
-                AttackingPlayer.Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
-                AttackingPlayer.Display.DisplayOcean.BothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
-                
-                var attackedPosition = AttackingPlayer.Attack();
-                
-                var attackResult = DefendingPlayer.UpdateMyBoard(attackedPosition);
-                
-                var isAttackSuccess = attackResult[0];
-                isHitAndSink = attackResult[1];
-                
-                AttackingPlayer.SaveAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
-                
-                DisplayAttackResults(attackedPosition, isAttackSuccess, isHitAndSink);
-                
-                if (isAttackSuccess == false) SwitchPLayers();
-                
-            } while (IsNotEndGame(isHitAndSink));
+            AttackingPlayer.Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
+            AttackingPlayer.Display.DisplayOcean.BothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
         }
+        
         public void DisplayEndGameMessage() => AttackingPlayer.Display.EndGameMessage(AttackingPlayer.PlayerNick);
 
     }

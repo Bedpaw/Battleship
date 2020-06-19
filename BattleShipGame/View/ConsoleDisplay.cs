@@ -1,15 +1,11 @@
 ﻿using System;
+using ConsoleApp7.Interface;
 
 namespace ConsoleApp7.View
 {
     public class ConsoleDisplay : IDisplay
     {
-        public string SetNick()
-        { 
-            Console.Clear();
-            Console.WriteLine("Set your Nick: ");
-            return Console.ReadLine();
-        }
+
 
         public IOceanDisplay DisplayOcean { get; set; } = new ConsoleOceanDisplay();
 

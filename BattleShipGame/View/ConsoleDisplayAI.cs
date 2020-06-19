@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ConsoleApp7.Interface;
 
 namespace ConsoleApp7.View
 {
