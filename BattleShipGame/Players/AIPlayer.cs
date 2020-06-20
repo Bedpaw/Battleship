@@ -155,9 +155,16 @@ namespace ConsoleApp7.Players
             {
                 var attackedPosition = ChoseMaxWeightFromList();
                 UpdateWeightsBoardAfterAttack(attackedPosition);
+                
                 return Utils.ConvertXYtoStringRepresentationOfCords(attackedPosition);
             }
-            return KillShipIfShoot();
+            var positionToAttack = KillShipIfShoot();
+            var attackedPos = Utils.ConvertAttackedPositionToXy(positionToAttack);
+            var fakedAttackedPositionAsXy = new [] {attackedPos[1], attackedPos[0]};
+            UpdateWeightsBoardAfterAttack(fakedAttackedPositionAsXy);
+            return positionToAttack;
+            
+            
         }
         
         private static int GenerateOrientation() => Utils.GenerateRandomFromToRange(1, 2);
@@ -199,7 +206,6 @@ namespace ConsoleApp7.Players
         {
             var attackedPositionAsXy = Utils.ConvertAttackedPositionToXy(attackedPosition);
             var fakedAttackedPositionAsXy = new [] {attackedPositionAsXy[1], attackedPositionAsXy[0]};
-            
             UniqueShootsArray.Add(fakedAttackedPositionAsXy);
 
             if (isHitAndSink)
