@@ -97,8 +97,8 @@ namespace ConsoleApp7.Players
 
                 if (!ShipOrientationIsKnown) return shipPos.GetAsString(shipPos.GetValidFieldAround());
 
-                if (IsShipHorizontal) if (shipPos.IsValidHorizontal) return shipPos.GetAsString(shipPos.GetValidHorizontal());
-                if (!IsShipHorizontal) if (shipPos.IsValidVertical) return shipPos.GetAsString(shipPos.GetValidVertical());
+                if (IsShipHorizontal) if (shipPos.IsValidHorizontal()) return shipPos.GetAsString(shipPos.GetValidHorizontal());
+                if (!IsShipHorizontal) if (shipPos.IsValidVertical()) return shipPos.GetAsString(shipPos.GetValidVertical());
             }
             throw new InvalidOperationException();
         }
@@ -177,7 +177,7 @@ namespace ConsoleApp7.Players
             WeightsOfShootsForHard[attackedPos[0] ,attackedPos[1]] = 0;
             var posAttack = new OceanFieldValidator(attackedPos, PlayerBoard, new List<int[]>());
             
-            while(posAttack.IsValidFieldAround)
+            while(posAttack.IsValidFieldAround())
             {
                 var posXy = posAttack.GetValidFieldAround(); // x, y
                 posAttack.AddToForbiddenList(posXy);

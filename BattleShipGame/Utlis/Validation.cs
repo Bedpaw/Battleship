@@ -9,11 +9,8 @@ namespace ConsoleApp7.utils
     {
         private static bool IsLetterFromAToJ(char letter)
         {
-            var columnLetters = new List<char>
-            {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'
-            };
-            return columnLetters.Contains(letter);
+            return new List<char> {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}
+                .Contains(letter);
         }
 
         private static bool IsNumberFrom1To10(char [] charsToValidate)

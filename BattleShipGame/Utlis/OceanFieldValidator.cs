@@ -51,19 +51,19 @@ namespace ConsoleApp7.Utlis
 
         private bool IsInForbiddenPositions(int[] position) => Utils.IsArrayDuplicateInList(ForbiddenPositions, position);
         
-        private bool IsRightValid => Validation.IsFieldInBoardWidth(PlayerBoard, X + 1) && !IsInForbiddenPositions(Right);
-        private bool IsLeftValid => Validation.IsFieldInBoardWidth(PlayerBoard, X - 1) && !IsInForbiddenPositions(Left);
-        private bool IsUpValid => Validation.IsFieldInBoardHeight(PlayerBoard, Y - 1) && !IsInForbiddenPositions(Up);
-        private bool IsDownValid => Validation.IsFieldInBoardHeight(PlayerBoard, Y + 1) && !IsInForbiddenPositions(Down);
+        private bool IsRightValid () => Validation.IsFieldInBoardWidth(PlayerBoard, X + 1) && !IsInForbiddenPositions(Right);
+        private bool IsLeftValid () => Validation.IsFieldInBoardWidth(PlayerBoard, X - 1) && !IsInForbiddenPositions(Left);
+        private bool IsUpValid () => Validation.IsFieldInBoardHeight(PlayerBoard, Y - 1) && !IsInForbiddenPositions(Up);
+        private bool IsDownValid () => Validation.IsFieldInBoardHeight(PlayerBoard, Y + 1) && !IsInForbiddenPositions(Down);
 
-        public bool IsValidHorizontal => IsRightValid || IsLeftValid;
-        public bool IsValidVertical => IsUpValid || IsDownValid;
+        public bool IsValidHorizontal () => IsRightValid() || IsLeftValid();
+        public bool IsValidVertical () => IsUpValid() || IsDownValid();
 
-        public bool IsValidFieldAround => IsValidHorizontal || IsValidVertical;
+        public bool IsValidFieldAround () => IsValidHorizontal() || IsValidVertical();
 
-        public int[] GetValidHorizontal() => IsRightValid ? Right : Left;
-        public int[] GetValidVertical() => IsUpValid ? Up : Down;
-        public int[] GetValidFieldAround() => IsValidHorizontal ? GetValidHorizontal() : GetValidVertical();
+        public int[] GetValidHorizontal() => IsRightValid() ? Right : Left;
+        public int[] GetValidVertical() => IsUpValid() ? Up : Down;
+        public int[] GetValidFieldAround() => IsValidHorizontal() ? GetValidHorizontal() : GetValidVertical();
 
         public string GetAsString(int[] position) => Utils.ConvertXYtoStringRepresentationOfCords(position);
 
