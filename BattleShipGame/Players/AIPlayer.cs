@@ -15,7 +15,6 @@ namespace ConsoleApp7.Players
     {
         private List<int[]> UniqueShootsArray = new List<int[]>();
         private List<int []> PositionsOfHitShip { get; set; } = new List<int[]>();
-
         private int[,] WeightsOfShootsForHard { get; set; }
         private bool IsShipHorizontal { get; set; }
         private bool ShipOrientationIsKnown => PositionsOfHitShip.Count > 1;
@@ -101,7 +100,7 @@ namespace ConsoleApp7.Players
                 if (IsShipHorizontal) if (shipPos.IsValidHorizontal) return shipPos.GetAsString(shipPos.GetValidHorizontal());
                 if (!IsShipHorizontal) if (shipPos.IsValidVertical) return shipPos.GetAsString(shipPos.GetValidVertical());
             }
-            return null;
+            throw new InvalidOperationException();
         }
 
         private bool CheckIfOrientationIsHorizontal(int [] attackedPosition)

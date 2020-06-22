@@ -61,8 +61,8 @@ namespace ConsoleApp7.Game.GameEngine
             AttackingPlayer.Display.DisplaySwapPlayers(AttackingPlayer.PlayerNick);
             AttackingPlayer.Display.DisplayOcean.BothOceans(AttackingPlayer.PlayerBoard, DefendingPlayer.PlayerBoard);
         }
-        
-        public void DisplayEndGameMessage() => AttackingPlayer.Display.EndGameMessage(AttackingPlayer.PlayerNick);
+
+        private void DisplayEndGameMessage() => AttackingPlayer.Display.EndGameMessage(AttackingPlayer.PlayerNick);
 
     }
 }
