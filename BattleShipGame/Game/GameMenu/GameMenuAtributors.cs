@@ -37,15 +37,15 @@ namespace ConsoleApp7.Game.GameMenu
                         var gameWithComputer = new GameEngine.Game
                         (
                             new ConsolePlayer(new ConsoleDisplay()),
-                            new PlayerAI(new ConsoleDisplayAI())
+                            new PlayerAi(new ConsoleDisplayAI())
                         );
                         gameWithComputer.GameLoop();
                         break;
                     case 3:
                         var gameAIvsAi = new GameEngine.Game
                         (
-                            new PlayerAI(new ConsoleDisplay()),
-                            new PlayerAI(new ConsoleDisplay())
+                            new PlayerAi(new ConsoleDisplay()),
+                            new PlayerAi(new ConsoleDisplay())
                         );
                         gameAIvsAi.GameLoop();
                         break;

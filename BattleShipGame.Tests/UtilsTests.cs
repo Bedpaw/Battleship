@@ -1,8 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using ConsoleApp7.utils;
 using NUnit.Framework;
-
+using NSubstitute;
 namespace BattleShipGameUnitTests
 {
     public class TestUtils
@@ -11,25 +11,17 @@ namespace BattleShipGameUnitTests
         public void Setup()
         {
         }
-
-        [Test]
-        public void IsConvertAttackedPositionToXyReturnsValidArray()
+        
+        [TestCase(new [] {8, 0}, "A9")]
+        [TestCase(new [] {0, 0}, "A1")]
+        [TestCase(new [] {3, 3}, "D4")]
+        [TestCase(new [] {9, 9}, "J10")]
+        public void ConvertAttackedPositionToXy_A9_A10_J10_J1_Returns08_09_99_90(int [] FieldPosXy, string attackedPosition)
         {
             // THIS IS FAKE TEST, SHOULD BE INVERTED 
-            var exceptedResults = new List<int[]>
-            {
-                new[] {8, 0}, new[] {9, 0}, new[] {9, 9}, new[] {0, 9}
-            };
-            var attackedPositions = new List<string>
-            {
-                "A9", "A10", "J10", "J1"
-            };
+            var result = Utils.ConvertAttackedPositionToXy(attackedPosition);
             
-            var result = new List<int []>();
-            
-            result.AddRange(attackedPositions.Select(Utils.ConvertAttackedPositionToXy));
-            
-            Assert.AreEqual(exceptedResults, result);
+            Assert.AreEqual(FieldPosXy, result);
             
         }
         

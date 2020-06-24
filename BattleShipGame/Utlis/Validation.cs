@@ -7,7 +7,7 @@ namespace ConsoleApp7.utils
 {
     public static class Validation
     {
-        private static bool IsLetterFromAToJ(char letter)
+        public static bool IsLetterFromAToJ(char letter)
         {
             return new List<char> {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'}
                 .Contains(letter);

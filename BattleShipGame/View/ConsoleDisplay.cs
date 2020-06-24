@@ -1,28 +1,42 @@
 ﻿using System;
+using System.Drawing;
 using ConsoleApp7.Interface;
 
 namespace ConsoleApp7.View
 {
     public class ConsoleDisplay : IDisplay
     {
+        private const ConsoleColor SuccessColor = ConsoleColor.Green;
+        private const ConsoleColor DangerColor = ConsoleColor.Yellow;
+        private const ConsoleColor FailsColor = ConsoleColor.Red;
+        private const ConsoleColor InfoColor = ConsoleColor.Gray;
 
-
+        
         public IOceanDisplay DisplayOcean { get; set; } = new ConsoleOceanDisplay();
 
         public void DisplayAttackingResult(string attackedPosition, bool attackResult, bool isHitAndSink)
         {
             var messageToDisplay = $"You shot into {attackedPosition}. ";
-            
+            ConsoleColor messageColor;
             if (attackResult)
             {
-                if (isHitAndSink) messageToDisplay += "HIT AND SINK!";
-                else messageToDisplay += "YOU HIT ENEMY SHIP!";
+                if (isHitAndSink)
+                {
+                    messageToDisplay += "HIT AND SINK!";
+                    messageColor = SuccessColor;
+                }
+                else
+                {
+                    messageToDisplay += "YOU HIT ENEMY SHIP!";
+                    messageColor = SuccessColor;
+                }
             }
             else
             {
                 messageToDisplay += "You hit nothing...";
+                messageColor = FailsColor;
             }
-            Console.WriteLine(messageToDisplay);
+            Console.WriteLine(messageToDisplay, messageColor);
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -62,4 +76,5 @@ namespace ConsoleApp7.View
             Console.Clear();
         }
     }
+    
 }
